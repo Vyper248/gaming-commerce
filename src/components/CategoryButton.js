@@ -13,7 +13,7 @@ const StyledComp = styled.div`
     overflow: hidden;
 
     & > div {
-        & > div {
+        & > div.title {
             width: 200px;
             padding: 10px;
             position: Absolute;
@@ -33,14 +33,15 @@ const StyledComp = styled.div`
             }
         }
 
-        img {
+        & > div.img {
             position: absolute;
             top: 0px;
             left: 0px;
             width: 100%;
-            ${props => props.imageAdj.scaleByHeight ? 'width: auto; height: 100%;' : ''};
-            ${props => props.imageAdj.left !== undefined ? `left: ${props.imageAdj.left}px;` : ''};
-            ${props => props.imageAdj.top !== undefined ? `top: ${props.imageAdj.top}px;` : ''};
+            height: 100%;
+            background-image: url('${props => props.imageURL}');
+            background-size: cover;
+            background-position: center;
             transition: 0.5s;
         }
     }
@@ -48,7 +49,7 @@ const StyledComp = styled.div`
     &:hover {
         cursor: pointer;
 
-        img {
+        div.img {
             transform: scale(1.1);
             transition: 5s linear;
         }
@@ -63,8 +64,8 @@ const CategoryButton = ({title='', imageURL='', imageAdj={}}) => {
     return (
         <StyledComp imageURL={imageURL} imageAdj={imageAdj}>
             <div>
-                <img src={imageURL}/>
-                <div>
+                <div className="img"></div>
+                <div className="title">
                     <h3>{title}</h3>
                     <div>Shop Now</div>
                 </div>

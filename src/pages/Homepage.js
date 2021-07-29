@@ -30,7 +30,7 @@ const Homepage = () => {
             </StyledGrid>
             <StyledGrid cols={2}>
                 <CategoryButton title='Consoles' imageAdj={{scaleByHeight: true, left:-10}} imageURL='https://www.thesun.co.uk/wp-content/uploads/2020/11/playstation5-2.jpg'/>
-                <CategoryButton title='Games' imageAdj={{scaleByHeight: false, left: 0}} imageURL='https://playpro.ir/wp-content/uploads/2020/12/%D8%A8%D8%B2%D8%B1%DA%AF%D8%AA%D8%B1%DB%8C%D9%86-%D8%A8%D8%A7%D8%B2%DB%8C-%D9%87%D8%A7%DB%8C-%D8%A7%D9%86%D8%AD%D8%B5%D8%A7%D8%B1%DB%8C-PS5-%D8%AF%D8%B1-%D8%B3%D8%A7%D9%84-2021.jpg'/>
+                <CategoryButton title='Games' imageURL='https://playpro.ir/wp-content/uploads/2020/12/%D8%A8%D8%B2%D8%B1%DA%AF%D8%AA%D8%B1%DB%8C%D9%86-%D8%A8%D8%A7%D8%B2%DB%8C-%D9%87%D8%A7%DB%8C-%D8%A7%D9%86%D8%AD%D8%B5%D8%A7%D8%B1%DB%8C-PS5-%D8%AF%D8%B1-%D8%B3%D8%A7%D9%84-2021.jpg'/>
             </StyledGrid>
         </StyledPage>
     );
