@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { withRouter } from "react-router";
+
 const StyledComp = styled.div`
     position: relative;
     display: flex;
@@ -60,9 +62,13 @@ const StyledComp = styled.div`
     }
 `;
 
-const CategoryButton = ({title='', imageURL='', imageAdj={}}) => {
+const CategoryButton = ({title='', url='', imageURL='', history, match}) => {
+    const onClick = () => {
+        history.push(`${match.url}${url}`);
+    }
+
     return (
-        <StyledComp imageURL={imageURL} imageAdj={imageAdj}>
+        <StyledComp imageURL={imageURL} onClick={onClick}>
             <div>
                 <div className="img"></div>
                 <div className="title">
@@ -74,4 +80,4 @@ const CategoryButton = ({title='', imageURL='', imageAdj={}}) => {
     );
 }
 
-export default CategoryButton;
+export default withRouter(CategoryButton);
