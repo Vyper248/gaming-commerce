@@ -62,9 +62,9 @@ const StyledComp = styled.div`
     }
 `;
 
-const CategoryButton = ({title='', url='', imageURL='', history, match}) => {
+const CategoryButton = ({title='', imageURL='', history, match}) => {
     const onClick = () => {
-        history.push(`${match.url}${url}`);
+        history.push(`${match.url}${title}`);
     }
 
     return (
