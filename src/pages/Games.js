@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import shopData from '../shopData';
+
 import Heading from '../components/Heading';
 
 const StyledComp = styled.div`

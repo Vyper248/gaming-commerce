@@ -64,7 +64,7 @@ const StyledComp = styled.div`
 
 const CategoryButton = ({title='', imageURL='', history, match}) => {
     const onClick = () => {
-        history.push(`${match.url}${title}`);
+        history.push(`Shop${match.url}${title}`);
     }
 
     return (

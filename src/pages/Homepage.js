@@ -5,8 +5,7 @@ import CategoryButton from '../components/CategoryButton';
 
 const StyledPage = styled.div`
     padding: 30px;
-    max-width: 1400px;
-    margin: auto;
+    
 `;
 
 const StyledGrid = styled.div`
