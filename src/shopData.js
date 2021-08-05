@@ -55,7 +55,7 @@ const shopData = [
         title: "Consoles",
         items: [
             {
-                id: 3,
+                id: 6,
                 name: "Playstation 5",
                 imageURL: "https://149367133.v2.pressablecdn.com/wp-content/uploads/2020/11/playstation-5-ps5-gadgetmatch-20201104.jpg",
                 price: 449.99,
@@ -64,7 +64,7 @@ const shopData = [
                 releaseDate: 'Out Now'
             },
             {
-                id: 4,
+                id: 7,
                 name: "Playstation 5 Digital Edition",
                 imageURL: "https://static3.srcdn.com/wordpress/wp-content/uploads/2020/10/PS5-Digital-Edition-Blew-It-According-To-Analyst.jpg",
                 price: 349.99,
@@ -72,8 +72,161 @@ const shopData = [
                 description: "The PS5 Digital Edition boasts the same features as the PS5 but without a disc-drive. Enjoy lightning-fast loading, ultra-high speed SSD, haptic feedback, adaptive triggers, and deeper immersion. Simply sign-in to your PlayStation Network account and purchase games digitally through the PlayStation store.",
                 releaseDate: 'Out Now'
             },
+            {
+                id: 21,
+                name: "Playstation 5: Rift Apart Bundle",
+                imageURL: "https://cdn.shopify.com/s/files/1/0067/3054/7259/products/201123_1024x1024.jpg?v=1623400226",
+                price: 399.99,
+                tags: ['Console'],
+                description: "The PS5 Digital Edition boasts the same features as the PS5 but without a disc-drive. Enjoy lightning-fast loading, ultra-high speed SSD, haptic feedback, adaptive triggers, and deeper immersion. Simply sign-in to your PlayStation Network account and purchase games digitally through the PlayStation store.",
+                releaseDate: 'Out Now'
+            },
+            {
+                id: 22,
+                name: "Playstation 4 Pro 1TB",
+                imageURL: "https://m.media-amazon.com/images/I/71jN27mYlhL._AC_SL1500_.jpg",
+                price: 399.99,
+                tags: ['Console'],
+                description: "",
+                releaseDate: 'Out Now'
+            },
         ]
-    }
+    },
+    {
+        id: 3,
+        title: "VR",
+        items: [
+            {
+                id: 8,
+                name: "PSVR Starter Pack",
+                imageURL: "https://cdn.mos.cms.futurecdn.net/GGAuXkkRc9rgDTRoMLeHMT-1200-80.jpg",
+                price: 249.99,
+                tags: ['VR', 'PSVR'],
+                description: "Put yourself at the centre of an extraordinary gaming universe with PS VR exclusive games, all powered by your PlayStation® console.",
+                releaseDate: 'Out Now'
+            },
+            {
+                id: 9,
+                name: "PSVR Mega Pack",
+                imageURL: "https://i.ytimg.com/vi/Rf5Gr6qIASw/maxresdefault.jpg",
+                price: 299.99,
+                tags: ['VR', 'PSVR'],
+                description: "Live the game with PS VR – the new great-value PlayStation®VR Mega Pack takes you straight to the heart of five thrilling VR adventures. ",
+                releaseDate: 'Out Now'
+            },
+            {
+                id: 10,
+                name: "Move Controllers",
+                imageURL: "https://www.playstationlifestyle.net/assets/uploads/2016/09/playstation-vr-move-controller-twin-pack-1280x720.png",
+                price: 59.99,
+                tags: ['Accessory', 'Controller'],
+                description: "Ergonomic, intuitive design thanks to a lightweight design, built-in vibration function and sphere that's tracked by the PlayStationCamera as you move, the controller acts and feels like an extension of your own hand, allowing you to intuitively interact with a game's virtual environment",
+                releaseDate: 'Out Now'
+            },
+            {
+                id: 11,
+                name: "Playstation Camera",
+                imageURL: "https://i.ytimg.com/vi/pLKGhCr4dQw/maxresdefault.jpg",
+                price: 49.99,
+                tags: ['Accessory'],
+                description: "Integral to PlayStationVR The PlayStationCamera is required for PlayStationVR and helps immerse you in enthralling virtual spaces. With dual lenses and 3D depth-sensing technology, the camera is able to accurately track every movement of the VR headset, DUALSHOCK4 wireless controller or PlayStationMove motion controller to give you an incredible sense of presence in virtual worlds.",
+                releaseDate: 'Out Now'
+            },
+        ]
+    },
+    {
+        id: 4,
+        title: "Accessories",
+        items: [
+            {
+                id: 12,
+                name: "DualSense",
+                imageURL: "https://www.androidcentral.com/sites/androidcentral.com/files/styles/large/public/article_images/2020/04/dualsense-ps5-blue-ps-background.jpg",
+                price: 59.99,
+                tags: ['Accessory', 'Controller'],
+                description: "Discover a deeper, highly immersive gaming experience with the innovative new PS5 controller, featuring haptic feedback and dynamic trigger effects.",
+                releaseDate: 'Out Now'
+            },
+            {
+                id: 13,
+                name: "PS5 HD Camera",
+                imageURL: "https://www.knowyourmobile.com/wp-content/uploads/2021/05/Sony-PS5-HD-Camera.jpg",
+                price: 49.99,
+                tags: ['Accessory', 'Camera'],
+                description: "",
+                releaseDate: 'Out Now'
+            },
+            {
+                id: 14,
+                name: "PS5 Media Remote",
+                imageURL: "https://www.thumbsticks.com/wp-content/uploads/2020/10/ps5-media-remote.jpg",
+                price: 24.99,
+                tags: ['Accessory', 'Remote'],
+                description: "",
+                releaseDate: 'Out Now'
+            },
+            {
+                id: 15,
+                name: "PS5 Pulse 3D Wireless Headset",
+                imageURL: "https://www.psu.com/wp/wp-content/uploads/2021/06/playstation-pulse-3d-wireless-headset-review-ps5-a-superb-encompassing-audio-experience-that-truly-shines-on-sonys-new-console-1.jpg",
+                price: 69.99,
+                tags: ['Accessory', 'Headset'],
+                description: "",
+                releaseDate: 'Out Now'
+            },
+            {
+                id: 16,
+                name: "DualSense Charging Station",
+                imageURL: "https://media.4rgos.it/s/Argos/8340377_R_SET?$Main768$&w=620&h=620",
+                price: 24.99,
+                tags: ['Accessory', 'Charging'],
+                description: "",
+                releaseDate: 'Out Now'
+            },
+        ]
+    },
+    {
+        id: 5,
+        title: "Merchandise",
+        items: [
+            {
+                id: 17,
+                name: "Hat",
+                imageURL: "https://i.ebayimg.com/images/g/32cAAOSwmGNfn4si/s-l640.jpg",
+                price: 8.99,
+                tags: ['Merchandise'],
+                description: "",
+                releaseDate: 'Out Now'
+            },
+            {
+                id: 18,
+                name: "Jacket",
+                imageURL: "https://live.staticflickr.com/65535/50952828267_166d5466e7_o.jpg",
+                price: 12.99,
+                tags: ['Merchandise'],
+                description: "",
+                releaseDate: 'Out Now'
+            },
+            {
+                id: 19,
+                name: "Miles Morales T-Shirt",
+                imageURL: "https://res.cloudinary.com/teepublic/image/private/s--ltWNzLbk--/t_Resized%20Artwork/c_crop,x_10,y_10/c_fit,h_463/c_crop,g_north_west,h_626,w_470,x_-68,y_-29/g_north_west,u_upload:v1462829015:production:blanks:mtl53ofohwq5goqjo9ke,x_-463,y_-354/b_rgb:eeeeee/c_limit,f_auto,h_630,q_90,w_630/v1592492493/production/designs/11451175_0.jpg",
+                price: 9.99,
+                tags: ['Merchandise'],
+                description: "",
+                releaseDate: 'Out Now'
+            },
+            {
+                id: 20,
+                name: "Backpack",
+                imageURL: "https://m.media-amazon.com/images/I/817rtWF+OrL._AC_SL1500_.jpg",
+                price: 22.99,
+                tags: ['Merchandise'],
+                description: "",
+                releaseDate: 'Out Now'
+            },
+        ]
+    },
 ]
 
 export default shopData;

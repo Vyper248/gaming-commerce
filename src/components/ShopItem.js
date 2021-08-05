@@ -11,6 +11,7 @@ const StyledComp = styled.div`
         background-image: url('${props => props.imageURL}');
         background-size: cover;
         background-position: center;
+        filter: brightness(0.96);
     }
 
     & div.itemName {
