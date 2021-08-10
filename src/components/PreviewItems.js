@@ -1,37 +1,37 @@
 import styled from 'styled-components';
+import { withRouter } from 'react-router';
 
 import ShopItem from './ShopItem';
+import Grid from './Grid';
 
 const StyledComp = styled.div`
     & > h1 {
         font-variant: small-caps;
-    }
+        width: max-content;
 
-    & > div {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-gap: 30px;
-    }
-
-    @media screen and (max-width: 900px) {
-        & > div {
-            grid-template-columns: repeat(2, 1fr);
+        &:hover {
+            cursor: pointer;
+            color: #555;
         }
     }
 `
 
-const PreviewItems = ({title, items}) => {
+const PreviewItems = ({title, items, history, match}) => {
+
+    const onClickTitle = () => {
+        history.push(`/Shop/${title}`);
+    }
 
     return (
         <StyledComp>
-            <h1>{title}</h1>
-            <div>
+            <h1 onClick={onClickTitle}>{title}</h1>
+            <Grid>
             {
-                items.filter((obj,i) => i < 4).map(item => <ShopItem item={item} category={title}/>)
+                items.filter((obj,i) => i < 4).map(item => <ShopItem key={item.id} item={item} category={title}/>)
             }
-            </div>
+            </Grid>
         </StyledComp>
     );
 }
 
-export default PreviewItems;
+export default withRouter(PreviewItems);

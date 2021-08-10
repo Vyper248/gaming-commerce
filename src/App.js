@@ -4,7 +4,7 @@ import Header from './components/Header';
 import Container from './components/Container';
 
 import Homepage from './pages/Homepage';
-import Games from './pages/Games';
+import CategoryPage from './pages/CategoryPage';
 import Shop from './pages/Shop';
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
       <Container>
         <Route exact path='/' component={Homepage}/>
         <Route exact path='/Shop' component={Shop}/>
-        <Route exact path='/Shop/Games' component={Games}/>
+        <Route exact path='/Shop/:Category' component={CategoryPage}/>
       </Container>
     </div>
   );

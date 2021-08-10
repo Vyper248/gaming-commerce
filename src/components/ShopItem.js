@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 
 const StyledComp = styled.div`
     width: 100%;
+    position: relative;
 
     & div.itemImage {
         // border: 1px solid red;
@@ -12,6 +13,40 @@ const StyledComp = styled.div`
         background-size: cover;
         background-position: center;
         filter: brightness(0.96);
+    }
+
+    & div.hover {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        background-color: #0000;
+        opacity: 0;
+        transition: 0.3s;
+    }
+    
+    & div.addCart {
+        padding: 10px;
+        color: black;
+        background-color: #FFFC;
+        text-align: center;
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        font-variant: small-caps;
+    }
+
+    & div.addCart:hover {
+        cursor: pointer;
+        background-color: #FFFF;
+    }
+    
+    & div.itemImage:hover div.hover {
+        background-color: #0006;
+        opacity: 1;
+        transition: 0.3s;
     }
 
     & div.itemName {
@@ -33,7 +68,7 @@ const StyledComp = styled.div`
         font-variant: small-caps;
     }
 
-    &:hover {
+    & div.itemName:hover {
         cursor: pointer;
     }
 `
@@ -43,11 +78,19 @@ const ShopItem = ({item, category, history}) => {
         history.push(`/Shop/${category}/${item.id}`)
     }
 
+    const onClickCart = (e) => {
+        e.stopPropagation();
+    }
+
     return (
-        <StyledComp imageURL={item.imageURL} onClick={onClick}>
-            <div className='itemImage'></div>
+        <StyledComp imageURL={item.imageURL}>
+            <div className='itemImage'>
+                <div className='hover'>
+                    <div className='addCart' onClick={onClickCart}>Add to Cart</div>
+                </div>
+            </div>
             <div className='itemFooter'>
-                <div className='itemName'>{item.name}</div>
+                <div className='itemName' onClick={onClick}>{item.name}</div>
                 <div className='itemPrice'>£{item.price}</div>
             </div>
         </StyledComp>
