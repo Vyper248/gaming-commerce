@@ -1,26 +1,41 @@
 import styled from 'styled-components';
 import { withRouter } from "react-router";
+import { Link } from 'react-router-dom';
+
+import { FaHome, FaShoppingCart } from 'react-icons/fa';
 
 const StyledComp = styled.div`
-    background-color: #EEE;
+    background-color: #FFF;
     width: 100%;
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 1.2em;
 
-    & > div.headerBtn {
-        display: inline-block;
-        padding: 8px 10px;
-        border-right: 1px solid #DDD;
+    & > .headerBtn {
+        padding: 10px;
+        margin: 20px;
+        text-decoration: none;
+        color: black;
     }
 
-    & > div.headerBtn:hover {
-        background-color: #DDD;
+    & svg {
+        font-size: 1.5em;
+    }
+
+    & > div.spacer {
+        flex-grow: 1;
+    }
+
+    & > .headerBtn:hover {
+        color: #555;
         cursor: pointer;
     }
 `
 
 const Header = ({history, match}) => {
-    const onClickShop = () => {
-        history.push('/Shop');
+    const onClickBasket = () => {
+
     }
 
     const onClickHome = () => {
@@ -29,8 +44,12 @@ const Header = ({history, match}) => {
 
     return (
         <StyledComp>
-            <div className='headerBtn' onClick={onClickHome}>Home</div>
-            <div className='headerBtn' onClick={onClickShop}>Shop</div>
+            <Link className='headerBtn' to='/'><FaHome/></Link>
+            <div className='spacer'></div>
+            <Link className='headerBtn' to='/Shop'>Shop</Link>
+            <Link className='headerBtn' to='/Contact'>Contact</Link>
+            <Link className='headerBtn' to='/SignIn'>Sign In</Link>
+            <div className='headerBtn' onClick={onClickBasket}><FaShoppingCart/></div>
         </StyledComp>
     );
 }
