@@ -6,6 +6,7 @@ import Container from './components/Container';
 import Homepage from './pages/Homepage';
 import CategoryPage from './pages/CategoryPage';
 import Shop from './pages/Shop';
+import SignInAndRegister from './pages/SignInAndRegister';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route exact path='/' component={Homepage}/>
         <Route exact path='/Shop' component={Shop}/>
         <Route exact path='/Shop/:Category' component={CategoryPage}/>
+        <Route exact path='/SignIn' component={SignInAndRegister}/>
       </Container>
     </div>
   );
