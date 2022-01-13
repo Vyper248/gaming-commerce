@@ -14,18 +14,18 @@ const StyledComp = styled.div`
     }
 
     & input:placeholder-shown + label {
-        transition: 0.2s;
         transform: translateY(30px) scale(1);
+        color: gray;
     }
 
     & input:focus + label {
         transform: translateY(0px) scale(0.8);
-        transition: 0.2s;
+        color: black;
     }
 
     & > label {
         position: absolute;
-        color: gray;
+        color: black;
         left: 5px;
         transform: translateY(0px) scale(0.8);
         transition: 0.2s;
@@ -38,7 +38,7 @@ const StyledComp = styled.div`
     }
 `
 
-const Input = ({label, type, value, onChange, required}) => {
+const Input = ({label, onChange, ...otherProps}) => {
     const onChangeText = (e) => {
         let value = e.target.value;
         onChange(value, e);
@@ -48,10 +48,8 @@ const Input = ({label, type, value, onChange, required}) => {
         <StyledComp>
             <input
                 placeholder={' '}
-                type={type}
-                value={value}
                 onChange={onChangeText}
-                required={required}
+                {...otherProps}
             />
             <label>{label}</label>
         </StyledComp> 

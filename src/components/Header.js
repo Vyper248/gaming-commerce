@@ -33,13 +33,9 @@ const StyledComp = styled.div`
     }
 `
 
-const Header = ({history, match}) => {
+const Header = () => {
     const onClickBasket = () => {
 
-    }
-
-    const onClickHome = () => {
-        history.push('/');
     }
 
     return (

@@ -18,9 +18,9 @@ const StyledComp = styled.button`
     }
 `
 
-const Button = ({label, type='button', backgroundColor='black', onClick}) => {
+const Button = ({label, backgroundColor='black', ...otherProps}) => {
     return (
-        <StyledComp onClick={onClick} type={type} backgroundColor={backgroundColor}>
+        <StyledComp backgroundColor={backgroundColor} {...otherProps}>
             { label }
         </StyledComp>
     );

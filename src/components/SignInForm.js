@@ -7,7 +7,7 @@ const StyledComp = styled.div`
     display: inline-block;
     margin: 20px 50px 20px 50px;
     text-align: left;
-    width: 40%;
+    width: 30vw;
     max-width: 500px;
     min-width: 300px;
 `
