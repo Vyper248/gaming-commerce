@@ -14,14 +14,12 @@ const StyledComp = styled.div`
     }
 
     & input:placeholder-shown + label {
-        top: 30px;
-        font-size: 1em;
         transition: 0.2s;
+        transform: translateY(30px) scale(1);
     }
 
     & input:focus + label {
-        top: 0px;
-        font-size: 0.8em;
+        transform: translateY(0px) scale(0.8);
         transition: 0.2s;
     }
 
@@ -29,10 +27,10 @@ const StyledComp = styled.div`
         position: absolute;
         color: gray;
         left: 5px;
-        top: 0px;
-        font-size: 0.8em;
+        transform: translateY(0px) scale(0.8);
         transition: 0.2s;
         pointer-events: none;
+        transform-origin: left;
     }
 
     & > input:focus {
