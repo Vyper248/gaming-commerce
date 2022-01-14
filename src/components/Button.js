@@ -7,9 +7,10 @@ const StyledComp = styled.button`
     display: inline-block;
     padding: 20px;
     text-align: center;
-    width: 200px;
+    min-width: 140px;
     text-transform: uppercase;
     font-size: 1em;
+    margin: 5px;
 
     &:hover {
         background-color: white;
