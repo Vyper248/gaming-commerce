@@ -38,14 +38,13 @@ const Header = ({currentUser}) => {
     const auth = getAuth();
     const history = useHistory();
 
-    const onSignOut = () => {
-        signOut(auth).then(() => {
-          // Sign-out successful.
-          history.push('/');
-        }).catch((error) => {
-          // An error happened.
-          console.log(error);
-        });
+    const onSignOut = async () => {
+        try {
+            await signOut(auth);
+            history.push('/');
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const onClickBasket = () => {
