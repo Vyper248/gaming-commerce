@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 
@@ -23,8 +22,6 @@ const RegisterForm = () => {
     const [password, setPassword] = useState('');
     const [confirmPass, setConfirmPass] = useState('');
 
-    let history = useHistory();
-
     const onRegister = async (e) => {
         e.preventDefault();
 
@@ -37,7 +34,6 @@ const RegisterForm = () => {
             setEmail('');
             setPassword('');
             setConfirmPass('');
-            history.push('/');
         } catch (error) {
             console.log(('Error creating user: ', error.message));
             if (error.message.includes('email-already-in-use')) alert('Email is already registered.');

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { withRouter } from "react-router";
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getAuth, signOut } from "firebase/auth";
 
 import { FaHome, FaShoppingCart } from 'react-icons/fa';
@@ -36,12 +36,10 @@ const StyledComp = styled.div`
 
 const Header = ({currentUser}) => {
     const auth = getAuth();
-    const history = useHistory();
 
     const onSignOut = async () => {
         try {
             await signOut(auth);
-            // history.push('/');
         } catch (error) {
             console.log(error);
         }

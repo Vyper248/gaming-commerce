@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 import { auth,  createUseProfileDocument} from './firebase/firebase.utils';
-import { getDoc, onSnapshot } from 'firebase/firestore';
+import { onSnapshot } from 'firebase/firestore';
 
 import Header from './components/Header';
 import Container from './components/Container';
@@ -15,11 +15,9 @@ import SignInAndRegister from './pages/SignInAndRegister';
 function App() {
 	const [currentUser, setCurrentUser] = useState(null);
 
-	let unsubscribeFromAuth = null;
-	let unsubscribeFromSnapshot = null;
-
 	useEffect(() => {
-		unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+		let unsubscribeFromSnapshot = null;
+		let unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
 			if (!userAuth) {
 				setCurrentUser(null);
 				return;
@@ -44,7 +42,7 @@ function App() {
 				<Route exact path='/' component={Homepage}/>
 				<Route exact path='/Shop' component={Shop}/>
 				<Route exact path='/Shop/:Category' component={CategoryPage}/>
-				<Route exact path='/SignIn' component={SignInAndRegister}/>
+				<Route exact path='/SignIn' render={() => currentUser ? <Redirect to='/'/> : <SignInAndRegister/>}/>
 			</Container>
 		</div>
 	);
