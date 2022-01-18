@@ -5,14 +5,13 @@ const StyledComp = styled.div`
     position: relative;
 
     & > svg {
-        font-size: 1em;
-        transform: scale(2);
+        transform: scale(1.3);
     }
 
     & > div {
         position: absolute;
         left: 0px;
-        top: 6px;
+        top: 11px;
         font-size: 0.7em;
         text-align: center;
         width: 100%;
