@@ -61,7 +61,8 @@ const SignInForm = () => {
                 <Input label='Password' type='password' value={password} onChange={onChangePassword} required/>
                 <div className='buttons'>
                     <Button label='Sign In' type='submit'/>
-                    <Button label='Sign In With Google' onClick={onSignInWithGoogle} backgroundColor='#4285F4'/>
+                    <Button label='Sign In With Google' type='button' onClick={onSignInWithGoogle} backgroundColor='#4285F4'/>
+                    {/* <Button label='Test' onClick={test} backgroundColor='#4285F4'/> */}
                 </div>
             </form>
         </StyledComp>
