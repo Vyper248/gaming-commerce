@@ -41,7 +41,7 @@ const Header = ({currentUser}) => {
     const onSignOut = async () => {
         try {
             await signOut(auth);
-            history.push('/');
+            // history.push('/');
         } catch (error) {
             console.log(error);
         }
@@ -60,7 +60,7 @@ const Header = ({currentUser}) => {
             <Link className='headerBtn' to='/Contact'>Contact</Link>
             { currentUser === null 
                 ? <Link className='headerBtn' to='/SignIn'>Sign In</Link> 
-                : <Link className='headerBtn' onClick={onSignOut}>Sign Out</Link>
+                : <Link className='headerBtn'to='/' onClick={onSignOut}>Sign Out</Link>
             }
             <div className='headerBtn' onClick={onClickBasket}><FaShoppingCart/></div>
         </StyledComp>
