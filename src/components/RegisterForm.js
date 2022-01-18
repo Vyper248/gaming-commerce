@@ -1,5 +1,11 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+
+
+import { createUseProfileDocument } from '../firebase/firebase.utils';
+
 import Button from './Button';
 import Input from './Input';
 
@@ -17,12 +23,26 @@ const RegisterForm = () => {
     const [password, setPassword] = useState('');
     const [confirmPass, setConfirmPass] = useState('');
 
-    const onRegister = (e) => {
+    let history = useHistory();
+
+    const onRegister = async (e) => {
         e.preventDefault();
-        setDisplayName('');
-        setEmail('');
-        setPassword('');
-        setConfirmPass('');
+
+        try {
+            let auth = getAuth();
+            let { user } = await createUserWithEmailAndPassword(auth, email, password);
+            await createUseProfileDocument(user, {displayName: displayName});
+
+            setDisplayName('');
+            setEmail('');
+            setPassword('');
+            setConfirmPass('');
+            history.push('/');
+        } catch (error) {
+            console.log(('Error creating user: ', error.message));
+            if (error.message.includes('email-already-in-use')) alert('Email is already registered.');
+            if (error.message.includes('weak-password')) alert('Password should be at least 6 characters.');
+        }
     }
 
     const onChangeDisplayName = (value) => setDisplayName(value);

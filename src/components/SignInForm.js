@@ -2,8 +2,10 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import Button from './Button';
 import Input from './Input';
-import { signInWithGoogle } from '../firebase/firebase.utils';
+import { signInWithGoogle, db } from '../firebase/firebase.utils';
 import { useHistory } from 'react-router-dom';
+import { collection, getDocs, getDoc, doc } from 'firebase/firestore';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 const StyledComp = styled.div`
     display: inline-block;
@@ -27,11 +29,23 @@ const SignInForm = () => {
     const onChangeEmail = (value) => setEmail(value);
     const onChangePassword =  (value) => setPassword(value);
 
-    const onSignIn = (e) => {
+    const onSignIn = async (e) => {
         e.preventDefault();
 
-        setEmail('');
-        setPassword('');
+        try {
+            let auth = getAuth();
+            await signInWithEmailAndPassword(auth, email, password);
+
+            setEmail('');
+            setPassword('');
+            history.push('/');
+        } catch (error) {            
+            
+            if (error.message.includes('wrong-password')) alert('Incorrect Email or Password');
+            else if (error.message.includes('user-not-found')) alert('Incorrect Email or Password');
+            else console.log(error.message);
+        }
+
     }
 
     const onSignInWithGoogle = () => {
