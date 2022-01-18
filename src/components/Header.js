@@ -3,7 +3,9 @@ import { withRouter } from "react-router";
 import { Link } from 'react-router-dom';
 import { getAuth, signOut } from "firebase/auth";
 
-import { FaHome, FaShoppingCart } from 'react-icons/fa';
+import { FaHome } from 'react-icons/fa';
+
+import CartIcon from './CartIcon';
 
 const StyledComp = styled.div`
     background-color: #FFF;
@@ -60,7 +62,7 @@ const Header = ({currentUser}) => {
                 ? <Link className='headerBtn' to='/SignIn'>Sign In</Link> 
                 : <Link className='headerBtn'to='/' onClick={onSignOut}>Sign Out</Link>
             }
-            <div className='headerBtn' onClick={onClickBasket}><FaShoppingCart/></div>
+            <div className='headerBtn' onClick={onClickBasket}><CartIcon/></div>
         </StyledComp>
     );
 }
