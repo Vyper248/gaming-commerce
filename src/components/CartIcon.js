@@ -1,5 +1,6 @@
 import { AiOutlineShopping } from 'react-icons/ai';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 const StyledComp = styled.div`
     position: relative;
@@ -19,10 +20,16 @@ const StyledComp = styled.div`
 `
 
 const CartIcon = () => {
+    const cartItems = useSelector(state => state.cart.items);
+
+    let numberOfItems = cartItems.reduce((a, c) => {
+        return a + c.qty;
+    }, 0);
+
     return (
         <StyledComp>
             <AiOutlineShopping/>
-            <div>0</div>
+            <div>{numberOfItems}</div>
         </StyledComp>
     );
 }

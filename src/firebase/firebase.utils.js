@@ -43,7 +43,7 @@ export const createUseProfileDocument = async (userAuth, additionalData) => {
 
 	if (!userSnapshot.exists()) {
 		const { displayName, email } = userAuth;
-		const createdAt = new Date();
+		const createdAt = Date.now();
 
 		try {
 			setDoc(userRef, {

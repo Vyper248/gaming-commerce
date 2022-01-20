@@ -7,6 +7,7 @@ const StyledComp = styled.button`
     display: inline-block;
     padding: 20px;
     text-align: center;
+    width: ${props => props.width ? props.width : 'auto'};
     min-width: 140px;
     text-transform: uppercase;
     font-size: 1em;

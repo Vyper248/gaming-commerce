@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { withRouter } from "react-router";
 import { Link } from 'react-router-dom';
 import { getAuth, signOut } from "firebase/auth";
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleCart } from '../redux/cartSlice';
 
 import { FaHome } from 'react-icons/fa';
 
@@ -36,8 +38,10 @@ const StyledComp = styled.div`
     }
 `
 
-const Header = ({currentUser}) => {
+const Header = () => {
     const auth = getAuth();
+    const dispatch = useDispatch();
+    const currentUser = useSelector(state => state.user.currentUser);
 
     const onSignOut = async () => {
         try {
@@ -47,10 +51,9 @@ const Header = ({currentUser}) => {
         }
     }
 
-    const onClickBasket = () => {
-
+    const onClickCart = () => {
+        dispatch(toggleCart());
     }
-
 
     return (
         <StyledComp>
@@ -62,7 +65,7 @@ const Header = ({currentUser}) => {
                 ? <Link className='headerBtn' to='/SignIn'>Sign In</Link> 
                 : <Link className='headerBtn'to='/' onClick={onSignOut}>Sign Out</Link>
             }
-            <div className='headerBtn' onClick={onClickBasket}><CartIcon/></div>
+            <div className='headerBtn' onClick={onClickCart}><CartIcon/></div>
         </StyledComp>
     );
 }

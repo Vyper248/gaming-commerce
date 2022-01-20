@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { withRouter } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { addItem } from '../redux/cartSlice';
 
 const StyledComp = styled.div`
     width: 100%;
@@ -74,12 +76,18 @@ const StyledComp = styled.div`
 `
 
 const ShopItem = ({item, category, history}) => {
+    const dispatch = useDispatch();
+
     const onClick = () => {
         history.push(`/Shop/${category}/${item.id}`)
     }
 
     const onClickCart = (e) => {
         e.stopPropagation();
+        dispatch(addItem({
+            item: item,
+            qty: 1,
+        }));
     }
 
     return (
