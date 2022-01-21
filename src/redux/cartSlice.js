@@ -20,12 +20,20 @@ const cartSlice = createSlice({
                 state.items.push(action.payload);
             }
         },
+        increaseQty: (state, action) => {
+            let existingItem = state.items.find(item => item.item.id === action.payload.id);
+            if (existingItem) existingItem.qty++;
+        },
+        decreaseQty: (state, action) => {
+            let existingItem = state.items.find(item => item.item.id === action.payload.id);
+            if (existingItem && existingItem.qty > 1) existingItem.qty--;
+        },
         removeItem: (state, action) => {
-            state.items = state.items.filter(item => item.id !== action.payload);
+            state.items = state.items.filter(item => item.item.id !== action.payload.id);
         },
     }
 });
 
-export const { toggleCart, addItem, removeItem } = cartSlice.actions;
+export const { toggleCart, addItem, removeItem, increaseQty, decreaseQty } = cartSlice.actions;
 
 export default cartSlice.reducer;

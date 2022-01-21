@@ -8,12 +8,13 @@ import { onSnapshot } from 'firebase/firestore';
 
 import Header from './components/Header';
 import Container from './components/Container';
+import CartDropdown from './components/CartDropdown';
 
 import Homepage from './pages/Homepage';
 import CategoryPage from './pages/CategoryPage';
 import Shop from './pages/Shop';
 import SignInAndRegister from './pages/SignInAndRegister';
-import CartDropdown from './components/CartDropdown';
+import Basket from './pages/Basket';
 
 function App() {
 	const currentUser = useSelector(state => state.user.currentUser);
@@ -48,6 +49,7 @@ function App() {
 				<Route exact path='/Shop' component={Shop}/>
 				<Route exact path='/Shop/:Category' component={CategoryPage}/>
 				<Route exact path='/SignIn' render={() => currentUser ? <Redirect to='/'/> : <SignInAndRegister/>}/>
+				<Route exact path='/Basket' component={Basket}/>
 			</Container>
 		</div>
 	);
