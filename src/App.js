@@ -23,13 +23,13 @@ function App() {
 		let unsubscribeFromSnapshot = null;
 		let unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
 			if (!userAuth) {
-				dispatch(setUser({payload: null}));
+				dispatch(setUser(null));
 				return;
 			}
 
 			let userRef = await createUseProfileDocument(userAuth);
 			unsubscribeFromSnapshot = onSnapshot(userRef, snapshot => {
-				dispatch(setUser({payload: {id: snapshot.id, ...snapshot.data()}}));
+				dispatch(setUser({id: snapshot.id, ...snapshot.data()}));
 			});
 		});
 

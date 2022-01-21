@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import styled from 'styled-components';
 import Button from './Button';
 import { useSelector } from 'react-redux';
@@ -26,6 +27,10 @@ const StyledComp = styled.div`
             height: 100px;
         }
     }
+
+    & > div.empty {
+        text-align: center;
+    }
 `
 
 const CartDropdown = () => {
@@ -39,9 +44,10 @@ const CartDropdown = () => {
             <div>
                 { cartItems.map(item => <CartItem key={item.item.id} cartItem={item}/>) }
             </div>
+            { cartItems.length === 0 ? <div className='empty'>Your shopping cart is empty</div> : null }
             <Button label='Go To Checkout' width='calc(100% - 10px)'/>
         </StyledComp>
     );
 }
 
-export default CartDropdown;
+export default memo(CartDropdown);

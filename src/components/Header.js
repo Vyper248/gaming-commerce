@@ -1,5 +1,5 @@
+import { memo } from 'react';
 import styled from 'styled-components';
-import { withRouter } from "react-router";
 import { Link } from 'react-router-dom';
 import { getAuth, signOut } from "firebase/auth";
 import { useSelector, useDispatch } from 'react-redux';
@@ -70,4 +70,4 @@ const Header = () => {
     );
 }
 
-export default withRouter(Header);
+export default memo(Header);

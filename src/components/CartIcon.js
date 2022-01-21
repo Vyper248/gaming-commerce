@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { AiOutlineShopping } from 'react-icons/ai';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
@@ -34,4 +35,4 @@ const CartIcon = () => {
     );
 }
 
-export default CartIcon;
+export default memo(CartIcon);
