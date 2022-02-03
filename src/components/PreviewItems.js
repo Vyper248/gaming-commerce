@@ -17,6 +17,11 @@ const StyledComp = styled.div`
 `
 
 const PreviewItems = ({title, items, history, match}) => {
+    //get first 4 items to display
+    let selectedItems = [];
+    for (let i = 0; i < 4; i++) {
+        if (items[i]) selectedItems.push(items[i]);
+    }
 
     const onClickTitle = () => {
         history.push(`/Shop/${title}`);
@@ -27,7 +32,7 @@ const PreviewItems = ({title, items, history, match}) => {
             <h1 onClick={onClickTitle}>{title}</h1>
             <Grid>
             {
-                items.filter((obj,i) => i < 4).map(item => <ShopItem key={item.id} item={item} category={title}/>)
+                selectedItems.map(item => <ShopItem key={item.id} item={item} category={title}/>)
             }
             </Grid>
         </StyledComp>
