@@ -12,7 +12,7 @@ const StyledComp = styled.div`
 
 const CategoryPage = ({match}) => {
     let categoryName = match.params.Category;
-    let categoryObj = shopData.find(obj => obj.title === categoryName);
+    let categoryObj = shopData[categoryName.toLowerCase()];
     let items = categoryObj.items;
     
     return (

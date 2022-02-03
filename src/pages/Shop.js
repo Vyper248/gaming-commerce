@@ -14,7 +14,7 @@ const Shop = () => {
     return (
         <StyledComp>
             {
-                data.map(obj => <PreviewItems key={obj.id} {...obj}/>)
+                Object.values(data).map(obj => <PreviewItems key={obj.id} {...obj}/>)
             }
         </StyledComp>
     );

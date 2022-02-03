@@ -1,12 +1,12 @@
-const shopData = [
-    {
+const shopData = {
+    games: {
         id: 1,
         title: "Games",
         items: [
             {
                 id: 1,
                 name: "Ghost of Tsushima: Director's Cut",
-                imageURL: "https://blog.playstation.com/tachyon/2021/07/1080x1080-GOT-DC.jpg?fit=1024%2C1024",
+                imageURL: "https://image.api.playstation.com/vulcan/ap/rnd/202106/2322/c16gs6a7lbAYzPf7ZTikbH1c.png?w=620&thumb=false",
                 price: 59.99,
                 tags: ['PS4', 'PS5', 'Open World', 'RPG', 'Third Person', 'Action'],
                 description: "In the late 13th century, the Mongol empire has laid waste to entire nations along their campaign to conquer the East. Tsushima Island is all that stands between mainland Japan and a massive Mongol invasion fleet led by the ruthless and cunning general, Khotun Khan.",
@@ -14,9 +14,9 @@ const shopData = [
             },
             {
                 id: 2,
-                name: "Far Cry 6 Ultimate Edition",
-                imageURL: "https://i0.wp.com/xboxgames.in/wp-content/uploads/2021/06/far-cry-6-logo-png.jpg?fit=1024%2C1024&ssl=1",
-                price: 89.99,
+                name: "Far Cry 6 Gold Edition",
+                imageURL: "https://image.api.playstation.com/vulcan/img/rnd/202109/1314/g98aC9BvIoQhD4AqZVpRCa90.png?w=620&thumb=false",
+                price: 84.99,
                 tags: ['PS4', 'PS5', 'Open World', 'RPG', 'First Person', 'Action'],
                 description: "Welcome to Yara, a tropical paradise frozen in time. As the dictator of Yara, Anton Castillo is intent on restoring his nation back to its former glory by any means, with his son, Diego, following in his bloody footsteps. Their ruthless oppression has ignited a revolution.",
                 releaseDate: '07/10/2021'
@@ -24,7 +24,7 @@ const shopData = [
             {
                 id: 3,
                 name: "God of War",
-                imageURL: "https://image.api.playstation.com/vulcan/img/rnd/202010/2217/ax0V5TYMax06mLzmkWeQMiwH.jpg",
+                imageURL: "https://image.api.playstation.com/vulcan/img/rnd/202011/1021/X3WIAh63yKhRRiMohLoJMeQu.png?w=620&thumb=false",
                 price: 15.99,
                 tags: ['PS4', 'RPG', 'Third Person', 'Action'],
                 description: "Living as a man outside the shadow of the gods, Kratos must adapt to unfamiliar lands, unexpected threats and a second chance at being a father. Together with his son Atreus, the pair will venture into the brutal realm of Midgard and fight to fulfil a deeply personal quest.",
@@ -33,7 +33,7 @@ const shopData = [
             {
                 id: 4,
                 name: "Horizon: Forbidden West",
-                imageURL: "https://upload.wikimedia.org/wikipedia/en/6/69/Horizon_Forbidden_West_cover_art.jpg",
+                imageURL: "https://image.api.playstation.com/vulcan/ap/rnd/202107/3100/HO8vkO9pfXhwbHi5WHECQJdN.png",
                 price: 59.99,
                 tags: ['PS4', 'PS5', 'RPG', 'Third Person', 'Action'],
                 description: "Explore distant lands, fight bigger and more awe-inspiring machines, and encounter astonishing new tribes as you return to the far-future, post-apocalyptic world of Horizon.",
@@ -50,7 +50,7 @@ const shopData = [
             },
         ]
     },
-    {
+    consoles: {
         id: 2,
         title: "Consoles",
         items: [
@@ -92,7 +92,7 @@ const shopData = [
             },
         ]
     },
-    {
+    vr: {
         id: 3,
         title: "VR",
         items: [
@@ -134,7 +134,7 @@ const shopData = [
             },
         ]
     },
-    {
+    accessories: {
         id: 4,
         title: "Accessories",
         items: [
@@ -185,7 +185,7 @@ const shopData = [
             },
         ]
     },
-    {
+    merchandise: {
         id: 5,
         title: "Merchandise",
         items: [
@@ -227,6 +227,6 @@ const shopData = [
             },
         ]
     },
-]
+}
 
 export default shopData;
