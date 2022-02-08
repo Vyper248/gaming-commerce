@@ -28,11 +28,11 @@ const StyledPage = styled.div`
 const Homepage = () => {
     return (
         <StyledPage>
-            <CategoryButton title='Accessories' imageURL='/images/Accessories.jpg'/>
-            <CategoryButton title='Merchandise'  imageURL='/images/Merchandise.jpg'/>
-            <CategoryButton title='VR' imageURL='/images/VR.png'/>
-            <CategoryButton title='Consoles' imageURL='/images/Consoles.jpg'/>
-            <CategoryButton title='Games' imageURL='/images/Games.jpeg'/>
+            <CategoryButton title='Accessories' imageURL='images/Accessories.jpg'/>
+            <CategoryButton title='Merchandise'  imageURL='images/Merchandise.jpg'/>
+            <CategoryButton title='VR' imageURL='images/VR.png'/>
+            <CategoryButton title='Consoles' imageURL='images/Consoles.jpg'/>
+            <CategoryButton title='Games' imageURL='images/Games.jpeg'/>
         </StyledPage>
     );
 }
