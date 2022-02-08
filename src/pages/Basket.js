@@ -5,6 +5,7 @@ import { FaTrashAlt } from 'react-icons/fa';
 
 import QuantitySelector from '../components/QuantitySelector';
 import IconButton from '../components/IconButton';
+import StripeButton from '../components/StripeButton';
 
 const StyledComp = styled.div`
     width: 780px;
@@ -17,7 +18,7 @@ const StyledComp = styled.div`
 
         & th {
             width: 190px;
-            font-weight: normal;
+            font-weight: bold;
             height: 50px;
         }
 
@@ -48,6 +49,12 @@ const StyledComp = styled.div`
         text-align: right;
         padding: 20px 0px;
         font-size: 2em;
+    }
+
+    & > #stripeDetails {
+        color: Red;
+        margin-bottom: 10px;
+        text-align: right;
     }
 `
 
@@ -107,6 +114,12 @@ const Basket = () => {
             <div className='totalCost'>
                 TOTAL: £{costString}
             </div>
+            <div id='stripeDetails'>
+                Please use the following test details for payment: <br/>
+                Card Number: 4242 4242 4242 4242 <br/>
+                Date: Any future date, CVV: Any 3 digit number
+            </div>
+            <StripeButton price={costString}/>
         </StyledComp>
     );
 }

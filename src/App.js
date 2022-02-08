@@ -15,9 +15,11 @@ import CategoryPage from './pages/CategoryPage';
 import Shop from './pages/Shop';
 import SignInAndRegister from './pages/SignInAndRegister';
 import Basket from './pages/Basket';
+import OrderConfirmation from './pages/OrderConfirmation';
 
 function App() {
 	const currentUser = useSelector(state => state.user.currentUser);
+	const orderedItems = useSelector(state => state.cart.orderedItems);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -50,6 +52,7 @@ function App() {
 				<Route exact path='/Shop/:Category' component={CategoryPage}/>
 				<Route exact path='/SignIn' render={() => currentUser ? <Redirect to='/'/> : <SignInAndRegister/>}/>
 				<Route exact path='/Basket' component={Basket}/>
+				<Route exact path='/Confirmation' render={() => orderedItems.length > 0 ? <OrderConfirmation/> : <Redirect to='/'/>}/>
 			</Container>
 		</div>
 	);
