@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/gaming-commerce/static/css/main.c4908474.chunk.css",
-    "main.js": "/gaming-commerce/static/js/main.5108cde6.chunk.js",
-    "main.js.map": "/gaming-commerce/static/js/main.5108cde6.chunk.js.map",
+    "main.js": "/gaming-commerce/static/js/main.f59658fd.chunk.js",
+    "main.js.map": "/gaming-commerce/static/js/main.f59658fd.chunk.js.map",
     "runtime-main.js": "/gaming-commerce/static/js/runtime-main.7fd629e5.js",
     "runtime-main.js.map": "/gaming-commerce/static/js/runtime-main.7fd629e5.js.map",
     "static/js/2.140715da.chunk.js": "/gaming-commerce/static/js/2.140715da.chunk.js",
@@ -19,6 +19,6 @@
     "static/js/runtime-main.7fd629e5.js",
     "static/js/2.140715da.chunk.js",
     "static/css/main.c4908474.chunk.css",
-    "static/js/main.5108cde6.chunk.js"
+    "static/js/main.f59658fd.chunk.js"
   ]
 }
