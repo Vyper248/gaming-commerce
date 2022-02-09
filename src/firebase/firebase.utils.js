@@ -46,7 +46,7 @@ export const createUseProfileDocument = async (userAuth, additionalData) => {
 		const createdAt = Date.now();
 
 		try {
-			setDoc(userRef, {
+			await setDoc(userRef, {
 				displayName,
 				email,
 				createdAt,

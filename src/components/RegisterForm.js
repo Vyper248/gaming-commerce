@@ -29,11 +29,6 @@ const RegisterForm = () => {
             let auth = getAuth();
             let { user } = await createUserWithEmailAndPassword(auth, email, password);
             await createUseProfileDocument(user, {displayName: displayName});
-
-            setDisplayName('');
-            setEmail('');
-            setPassword('');
-            setConfirmPass('');
         } catch (error) {
             console.log(('Error creating user: ', error.message));
             if (error.message.includes('email-already-in-use')) alert('Email is already registered.');
