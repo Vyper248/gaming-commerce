@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import { getFirestore, doc, collection, getDoc, setDoc, writeBatch } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -38,7 +38,7 @@ export const signInWithGoogle = async (history) => {
 export const createUseProfileDocument = async (userAuth, additionalData) => {
 	if (!userAuth) return;
 
-	const userRef = await doc(db, 'users', userAuth.uid);
+	const userRef = doc(db, 'users', userAuth.uid);
 	const userSnapshot = await getDoc(userRef);
 
 	if (!userSnapshot.exists()) {
@@ -58,4 +58,19 @@ export const createUseProfileDocument = async (userAuth, additionalData) => {
 	}
 
 	return userRef;
+}
+
+export const addCollectionAndItems = async (collectionKey, collectionItems) => {
+	try {
+		const batch = writeBatch(db);
+
+		collectionItems.forEach(collectionObj => {
+			let collectionRef = doc(collection(db, collectionKey));
+			batch.set(collectionRef, collectionObj);
+		});
+
+		await batch.commit();
+	} catch (error) {
+		console.log('Error creating collections: ', error.message);
+	}
 }

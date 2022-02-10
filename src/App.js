@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser } from './redux/userSlice';
 
-import { auth,  createUseProfileDocument} from './firebase/firebase.utils';
+import { auth,  createUseProfileDocument } from './firebase/firebase.utils';
 import { onSnapshot } from 'firebase/firestore';
 
 import Header from './components/Header';
