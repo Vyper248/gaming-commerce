@@ -74,3 +74,24 @@ export const addCollectionAndItems = async (collectionKey, collectionItems) => {
 		console.log('Error creating collections: ', error.message);
 	}
 }
+
+export const addShopDataToFirebase = async (collectionItems) => {
+	try {
+		const batch = writeBatch(db);
+
+		collectionItems.forEach(collectionObj => {
+			let collectionRef = doc(collection(db, 'collections'));
+			let items = collectionObj.items;
+			items.forEach(item => {
+				let itemRef = doc(collection(db, `collections/${collectionRef.id}/items`));
+				delete item.id;
+				batch.set(itemRef, item);
+			});
+			batch.set(collectionRef, {title: collectionObj.title});
+		});
+
+		await batch.commit();
+	} catch (error) {
+		console.log('Error creating collections: ', error.message);
+	}
+}
