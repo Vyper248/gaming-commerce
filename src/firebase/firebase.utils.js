@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { getFirestore, doc, collection, getDoc, setDoc, writeBatch } from "firebase/firestore";
+import { getFirestore, doc, collection, getDoc, getDocs, setDoc, writeBatch, onSnapshot } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -94,4 +94,25 @@ export const addShopDataToFirebase = async (collectionItems) => {
 	} catch (error) {
 		console.log('Error creating collections: ', error.message);
 	}
+}
+
+export const subscribeToCollections = async (unsubscriptions, dataHandler) => {
+	//get collections and subscribe to item lists to monitor for item changes
+	let dataRef = collection(db, 'collections');
+	let dataSnapshot = await getDocs(dataRef);
+	dataSnapshot.forEach(collectionDoc => {
+		let id = collectionDoc.id;
+		let itemRef = collection(db, `collections/${id}/items`);
+
+		let unsubscription = onSnapshot(itemRef, snapshot => {
+			let collectionData = collectionDoc.data();
+			let items = [];
+			snapshot.forEach(itemDoc => {
+				items.push({...itemDoc.data(), id: itemDoc.id});
+			});
+			dataHandler({...collectionData, id, items});
+		});
+
+		unsubscriptions.push(unsubscription);
+	});
 }

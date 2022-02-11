@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
-import { setUser } from './redux/userSlice';
 
-import { auth,  createUseProfileDocument } from './firebase/firebase.utils';
+import { setUser } from './redux/userSlice';
+import { setCollection } from './redux/shopSlice';
+
+import { auth,  createUseProfileDocument, subscribeToCollections } from './firebase/firebase.utils';
 import { onSnapshot } from 'firebase/firestore';
 
 import Header from './components/Header';
@@ -24,6 +26,8 @@ function App() {
 
 	useEffect(() => {
 		let unsubscribeFromSnapshot = null;
+		let unsubscriptions = [];
+
 		let unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
 			if (!userAuth) {
 				dispatch(setUser(null));
@@ -36,9 +40,14 @@ function App() {
 			});
 		});
 
+		//get collections and subscribe to item lists to monitor for item changes
+		// let handleDataChanges = (collectionData) => dispatch(setCollection({collectionData}));
+		// subscribeToCollections(unsubscriptions, handleDataChanges);
+
 		return () => {
 			unsubscribeFromAuth();
 			if (unsubscribeFromSnapshot) unsubscribeFromSnapshot();
+			unsubscriptions.forEach(unsubscribe => unsubscribe());
 		}
 	}, [dispatch]);
 

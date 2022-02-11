@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-
-import shopData from '../shopData';
+import { useSelector } from 'react-redux';
 
 import PreviewItems from '../components/PreviewItems';
 
@@ -9,12 +8,12 @@ const StyledComp = styled.div`
 `
 
 const Shop = () => {
-    const data = shopData;
+    const shopData = useSelector(state => state.shop.collections);
 
     return (
         <StyledComp>
             {
-                Object.values(data).map(obj => <PreviewItems key={obj.id} {...obj}/>)
+                Object.values(shopData).map(obj => <PreviewItems key={obj.id} {...obj}/>)
             }
         </StyledComp>
     );
