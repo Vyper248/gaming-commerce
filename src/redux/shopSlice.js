@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+    loadingData: false,
     collections: {
         Games: {
             id: 1,
@@ -231,6 +232,7 @@ const initialState = {
             ]
         },
     },
+    // collections: {}
 }
 
 export const shopSlice = createSlice({
@@ -241,9 +243,12 @@ export const shopSlice = createSlice({
             let {collectionData} = action.payload;
             state.collections[collectionData.title] = collectionData;
         },
+        setLoading: (state, action) => {
+            state.loadingData = action.payload;
+        },
     },
 });
 
-export const { setCollection } = shopSlice.actions;
+export const { setCollection, setLoading } = shopSlice.actions;
 
 export default shopSlice.reducer;

@@ -1,21 +1,18 @@
-import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
 import PreviewItems from '../components/PreviewItems';
-
-const StyledComp = styled.div`
-
-`
+import Spinner from '../components/Spinner';
 
 const Shop = () => {
     const shopData = useSelector(state => state.shop.collections);
+    const loadingData = useSelector(state => state.shop.loadingData);
 
     return (
-        <StyledComp>
+        <Spinner isLoading={loadingData}>
             {
                 Object.values(shopData).map(obj => <PreviewItems key={obj.id} {...obj}/>)
             }
-        </StyledComp>
+        </Spinner>
     );
 }
 

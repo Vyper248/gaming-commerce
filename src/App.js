@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
 
 import { setUser } from './redux/userSlice';
-import { setCollection } from './redux/shopSlice';
+import { setCollection, setLoading } from './redux/shopSlice';
 
 import { auth,  createUseProfileDocument, subscribeToCollections } from './firebase/firebase.utils';
 import { onSnapshot } from 'firebase/firestore';
@@ -41,7 +41,12 @@ function App() {
 		});
 
 		//get collections and subscribe to item lists to monitor for item changes
-		// let handleDataChanges = (collectionData) => dispatch(setCollection({collectionData}));
+		//Note: only efficient for a fairly small database of items, helps save firebase allowances
+		// dispatch(setLoading(true));
+		// let handleDataChanges = (collectionData) => {
+		// 	dispatch(setCollection({collectionData}));
+		// 	dispatch(setLoading(false));
+		// }
 		// subscribeToCollections(unsubscriptions, handleDataChanges);
 
 		return () => {
