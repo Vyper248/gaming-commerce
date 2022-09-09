@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledComp = styled.button`
+const StyledButton = styled.button`
     border: 1px solid ${props => props.backgroundColor};
     color: white;
     background-color: ${props => props.backgroundColor};
@@ -20,12 +20,4 @@ const StyledComp = styled.button`
     }
 `
 
-const Button = ({label, backgroundColor='black', ...otherProps}) => {
-    return (
-        <StyledComp backgroundColor={backgroundColor} {...otherProps}>
-            { label }
-        </StyledComp>
-    );
-}
-
-export default Button;
+export default StyledButton;

@@ -1,24 +1,9 @@
+import React from 'react';
 import { memo } from 'react';
 import { AiOutlineShopping } from 'react-icons/ai';
-import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import StyledCartIcon from './CartIcon.style';
 
-const StyledComp = styled.div`
-    position: relative;
-
-    & > svg {
-        transform: scale(1.3);
-    }
-
-    & > div {
-        position: absolute;
-        left: 0px;
-        top: 11px;
-        font-size: 0.7em;
-        text-align: center;
-        width: 100%;
-    }
-`
 
 const CartIcon = () => {
     const cartItems = useSelector(state => state.cart.items);
@@ -28,10 +13,10 @@ const CartIcon = () => {
     }, 0);
 
     return (
-        <StyledComp>
+        <StyledCartIcon>
             <AiOutlineShopping/>
             <div>{numberOfItems}</div>
-        </StyledComp>
+        </StyledCartIcon>
     );
 }
 

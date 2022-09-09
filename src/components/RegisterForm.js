@@ -5,7 +5,7 @@ import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 import { createUseProfileDocument } from '../firebase/firebase.utils';
 
-import Button from './Button';
+import Button from './Button/Button';
 import Input from './Input';
 
 const StyledComp = styled.div`

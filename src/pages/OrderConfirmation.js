@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { reset } from '../redux/cartSlice';
 
-import Button from '../components/Button';
+import Button from '../components/Button/Button';
 
 const StyledComp = styled.div`
     text-align: center;

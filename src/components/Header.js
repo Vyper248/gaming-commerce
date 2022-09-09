@@ -7,7 +7,7 @@ import { toggleCart } from '../redux/cartSlice';
 
 import { FaHome } from 'react-icons/fa';
 
-import CartIcon from './CartIcon';
+import CartIcon from './CartIcon/CartIcon';
 
 const StyledComp = styled.div`
     background-color: #FFF;

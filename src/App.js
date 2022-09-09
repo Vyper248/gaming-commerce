@@ -10,7 +10,7 @@ import { onSnapshot } from 'firebase/firestore';
 
 import Header from './components/Header';
 import Container from './components/Container';
-import CartDropdown from './components/CartDropdown';
+import CartDropdown from './components/CartDropdown/CartDropdown';
 
 import Homepage from './pages/Homepage';
 import CategoryPage from './pages/CategoryPage';
