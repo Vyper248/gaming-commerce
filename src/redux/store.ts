@@ -3,8 +3,9 @@ import userReducer from './userSlice'
 import cartReducer from './cartSlice';
 import shopReducer from './shopSlice';
 
+import { Middleware } from '@reduxjs/toolkit';
 
-const localStorageMiddleware = ({getState}) => next => action => {
+const localStorageMiddleware: Middleware = ({getState}) => next => action => {
 	const result = next(action);
 
 	//if the following action types are used, don't save state
@@ -13,7 +14,7 @@ const localStorageMiddleware = ({getState}) => next => action => {
 
 	//only save the following states
 	let state = getState();
-	let saveObj = {};
+	let saveObj: {[key: string]: string | number | object} = {};
 	let whitelist = ['cart'];
 	whitelist.forEach(key => {
 		saveObj[key] = state[key];
@@ -25,11 +26,11 @@ const localStorageMiddleware = ({getState}) => next => action => {
 
 const reHydrateStore = () => {
 	if (localStorage.getItem('gameCommerceState') !== null) {
-		return JSON.parse(localStorage.getItem('gameCommerceState'));
+		return JSON.parse(localStorage.getItem('gameCommerceState') || "");
 	}
 };
 
-export const store = configureStore({
+const store = configureStore({
 	reducer: {
 		user: userReducer,
 		cart: cartReducer,
@@ -39,3 +40,7 @@ export const store = configureStore({
   	middleware: getDefaultMiddleware =>
     	getDefaultMiddleware().concat(localStorageMiddleware),
 })
+
+export type RootState = ReturnType<typeof store.getState>;
+
+export default store;

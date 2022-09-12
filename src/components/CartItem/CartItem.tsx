@@ -1,19 +1,19 @@
-import React from "react";
 import StyledCartItem from "./CartItem.style";
 
 type Item = {
     imageURL: string;
     name: string;
     price: number;
+    id: number;
 }
 
-type CartItem = {
+export type CartItemType = {
     item: Item;
     qty: number;
 }
 
 type CartItemProps = {
-    cartItem: CartItem;
+    cartItem: CartItemType;
 }
 
 const CartItem = ({cartItem}: CartItemProps) => {
