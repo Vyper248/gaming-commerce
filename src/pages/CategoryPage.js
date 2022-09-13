@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
 
-import Heading from '../components/Heading';
-import ShopItem from '../components/ShopItem';
-import Grid from '../components/Grid';
+import Heading from '../components/Heading/Heading';
+import ShopItem from '../components/ShopItem/ShopItem';
+import Grid from '../components/Grid/Grid';
 import Spinner from '../components/Spinner';
 
 const CategoryPage = ({match}) => {

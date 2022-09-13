@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import Button from './Button/Button';
-import Input from './Input';
+import Input from './Input/Input';
 import { signInWithGoogle, db } from '../firebase/firebase.utils';
 import { collection, getDocs, getDoc, doc } from 'firebase/firestore';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';

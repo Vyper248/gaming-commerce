@@ -8,8 +8,8 @@ import { setCollection, setLoading } from './redux/shopSlice';
 import { auth,  createUseProfileDocument, subscribeToCollections } from './firebase/firebase.utils';
 import { onSnapshot } from 'firebase/firestore';
 
-import Header from './components/Header';
-import Container from './components/Container';
+import Header from './components/Header/Header';
+import Container from './components/Container/Container';
 import CartDropdown from './components/CartDropdown/CartDropdown';
 
 import Homepage from './pages/Homepage';

@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { increaseQty, decreaseQty, removeItem } from '../redux/cartSlice';
 import { FaTrashAlt } from 'react-icons/fa';
 
-import QuantitySelector from '../components/QuantitySelector';
-import IconButton from '../components/IconButton';
+import QuantitySelector from '../components/QuantitySelector/QuantitySelector';
+import IconButton from '../components/IconButton/IconButton';
 import StripeButton from '../components/StripeButton';
 
 const StyledComp = styled.div`

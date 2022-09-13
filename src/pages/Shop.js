@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-import PreviewItems from '../components/PreviewItems';
+import PreviewItems from '../components/PreviewItems/PreviewItems';
 import Spinner from '../components/Spinner';
 
 const Shop = () => {

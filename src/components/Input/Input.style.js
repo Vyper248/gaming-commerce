@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledComp = styled.div`
+const StyledInput = styled.div`
     position: relative;
     margin-bottom: 40px;
     margin-top: 40px;
@@ -38,22 +38,4 @@ const StyledComp = styled.div`
     }
 `
 
-const Input = ({label, onChange, ...otherProps}) => {
-    const onChangeText = (e) => {
-        let value = e.target.value;
-        onChange(value, e);
-    }
-
-    return (
-        <StyledComp>
-            <input
-                placeholder={' '}
-                onChange={onChangeText}
-                {...otherProps}
-            />
-            <label>{label}</label>
-        </StyledComp> 
-    );
-}
-
-export default Input;
+export default StyledInput;

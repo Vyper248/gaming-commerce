@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
-import { withRouter } from "react-router";
-
-const StyledComp = styled.div`
+const StyledCategoryButton = styled.div`
     position: relative;
     display: flex;
     width: 100%;
@@ -62,22 +60,4 @@ const StyledComp = styled.div`
     }
 `;
 
-const CategoryButton = ({title='', imageURL='', history, match}) => {
-    const onClick = () => {
-        history.push(`Shop${match.url}${title}`);
-    }
-
-    return (
-        <StyledComp imageURL={imageURL} onClick={onClick}>
-            <div>
-                <div className="img"></div>
-                <div className="title">
-                    <h3>{title}</h3>
-                    <div>Shop Now</div>
-                </div>
-            </div>
-        </StyledComp>
-    );
-}
-
-export default withRouter(CategoryButton);
+export default StyledCategoryButton;

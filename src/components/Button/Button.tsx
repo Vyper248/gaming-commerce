@@ -4,8 +4,9 @@ import StyledButton from './Button.style';
 type ButtonProps = {
     label: string;
     backgroundColor?: string;
-    onClick: () => void;
+    onClick?: () => void;
     width?: string;
+    type?: string;
 }
 
 const Button = ({label, backgroundColor='black', ...otherProps}: ButtonProps) => {

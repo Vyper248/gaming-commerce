@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import CategoryButton from '../components/CategoryButton';
+import CategoryButton from '../components/CategoryButton/CategoryButton';
 
 const StyledPage = styled.div`
     padding: 30px;

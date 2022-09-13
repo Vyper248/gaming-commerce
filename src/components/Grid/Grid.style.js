@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledComp = styled.div`
+const StyledGrid = styled.div`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 30px;
@@ -10,10 +10,4 @@ const StyledComp = styled.div`
     }
 `
 
-const Grid = ({children}) => {
-    return (
-        <StyledComp>{children}</StyledComp>
-    );
-}
-
-export default Grid;
+export default StyledGrid;

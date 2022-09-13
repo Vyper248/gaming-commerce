@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import SignInForm from '../components/SignInForm';
-import RegisterForm from '../components/RegisterForm';
+import RegisterForm from '../components/RegisterForm/RegisterForm';
 
 const StyledComp = styled.div`
     display: flex;

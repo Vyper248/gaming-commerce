@@ -1,9 +1,6 @@
 import styled from 'styled-components';
-import { withRouter } from 'react-router';
-import { useDispatch } from 'react-redux';
-import { addItem } from '../redux/cartSlice';
 
-const StyledComp = styled.div`
+const StyledShopItem = styled.div`
     width: 100%;
     position: relative;
 
@@ -75,34 +72,4 @@ const StyledComp = styled.div`
     }
 `
 
-const ShopItem = ({item, category, history}) => {
-    const dispatch = useDispatch();
-
-    const onClick = () => {
-        history.push(`/Shop/${category}/${item.id}`)
-    }
-
-    const onClickCart = (e) => {
-        e.stopPropagation();
-        dispatch(addItem({
-            item: item,
-            qty: 1,
-        }));
-    }
-
-    return (
-        <StyledComp imageURL={item.imageURL}>
-            <div className='itemImage'>
-                <div className='hover'>
-                    <div className='addCart' onClick={onClickCart}>Add to Cart</div>
-                </div>
-            </div>
-            <div className='itemFooter'>
-                <div className='itemName' onClick={onClick}>{item.name}</div>
-                <div className='itemPrice'>£{item.price}</div>
-            </div>
-        </StyledComp>
-    );
-}
-
-export default withRouter(ShopItem);
+export default StyledShopItem;
