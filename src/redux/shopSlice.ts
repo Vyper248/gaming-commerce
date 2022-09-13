@@ -1,6 +1,31 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = {
+type SliceState = {
+    loadingData: boolean;
+    collections: Collections;
+}
+
+type Collections = {
+    [key: string]: Collection;
+}
+
+type Collection = {
+    id: number;
+    title: string;
+    items: Item[];
+}
+
+export type Item = {
+    id: number;
+    name: string;
+    imageURL: string;
+    price: number;
+    tags: string[];
+    description: string;
+    releaseDate: string;
+}
+
+const initialState: SliceState = {
     loadingData: false,
     collections: {
         Games: {
@@ -239,11 +264,11 @@ export const shopSlice = createSlice({
     name: 'shop',
     initialState,
     reducers: {
-        setCollection: (state, action) => {
-            let {collectionData} = action.payload;
+        setCollection: (state: SliceState, action: PayloadAction<Collection>) => {
+            let collectionData = action.payload;
             state.collections[collectionData.title] = collectionData;
         },
-        setLoading: (state, action) => {
+        setLoading: (state: SliceState, action: PayloadAction<boolean>) => {
             state.loadingData = action.payload;
         },
     },

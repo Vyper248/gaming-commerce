@@ -44,7 +44,7 @@ function App() {
 		//Note: only efficient for a fairly small database of items, helps save firebase allowances
 		// dispatch(setLoading(true));
 		// let handleDataChanges = (collectionData) => {
-		// 	dispatch(setCollection({collectionData}));
+		// 	dispatch(setCollection(collectionData));
 		// 	dispatch(setLoading(false));
 		// }
 		// subscribeToCollections(unsubscriptions, handleDataChanges);

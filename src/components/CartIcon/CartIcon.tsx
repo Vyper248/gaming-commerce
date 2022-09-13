@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 import StyledCartIcon from './CartIcon.style';
 import { RootState } from '../../redux/store';
-import { CartItemType } from '../CartItem/CartItem';
+import { CartItem as CartItemType } from "../../redux/cartSlice";
 
 const CartIcon = () => {
     const cartItems = useSelector((state: RootState) => state.cart.items);

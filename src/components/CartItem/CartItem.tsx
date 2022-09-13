@@ -1,16 +1,5 @@
 import StyledCartItem from "./CartItem.style";
-
-type Item = {
-    imageURL: string;
-    name: string;
-    price: number;
-    id: number;
-}
-
-export type CartItemType = {
-    item: Item;
-    qty: number;
-}
+import { CartItem as CartItemType } from "../../redux/cartSlice";
 
 type CartItemProps = {
     cartItem: CartItemType;

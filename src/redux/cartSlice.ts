@@ -1,4 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+import { Item } from './shopSlice';
+
+type SliceState = {
+    open: boolean;
+    items: CartItem[];
+    orderedItems: CartItem[];
+}
+
+export type CartItem = {
+    item: Item;
+    qty: number;
+}
 
 const initialState = {
     open: false,
@@ -10,10 +23,10 @@ const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        toggleCart: (state) => {
+        toggleCart: (state: SliceState) => {
             state.open = !state.open;
         },
-        addItem: (state, action) => {
+        addItem: (state: SliceState, action: PayloadAction<CartItem>) => {
             let existingItem = state.items.find(item => item.item.id === action.payload.item.id);
             if (existingItem) {
                 existingItem.qty++;
@@ -22,22 +35,22 @@ const cartSlice = createSlice({
             }
             state.orderedItems = [];
         },
-        increaseQty: (state, action) => {
+        increaseQty: (state: SliceState, action: PayloadAction<Item>) => {
             let existingItem = state.items.find(item => item.item.id === action.payload.id);
             if (existingItem) existingItem.qty++;
         },
-        decreaseQty: (state, action) => {
+        decreaseQty: (state: SliceState, action: PayloadAction<Item>) => {
             let existingItem = state.items.find(item => item.item.id === action.payload.id);
             if (existingItem && existingItem.qty > 1) existingItem.qty--;
         },
-        removeItem: (state, action) => {
+        removeItem: (state: SliceState, action: PayloadAction<Item>) => {
             state.items = state.items.filter(item => item.item.id !== action.payload.id);
         },
-        placeOrder: (state) => {
+        placeOrder: (state: SliceState) => {
             state.orderedItems = state.items;
             state.items = [];
         },
-        reset: (state) => {
+        reset: (state: SliceState) => {
             state.items = [];
             state.orderedItems = [];
         }

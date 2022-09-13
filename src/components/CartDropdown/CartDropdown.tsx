@@ -9,7 +9,7 @@ import Button from '../Button/Button';
 import CartItem from '../CartItem/CartItem';
 import StyledCartDropdown from './CartDropdown.style';
 
-import { CartItemType } from '../CartItem/CartItem';
+import { CartItem as CartItemType } from "../../redux/cartSlice";
 
 const CartDropdown = () => {
     const dispatch = useDispatch();
