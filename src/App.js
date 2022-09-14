@@ -12,12 +12,12 @@ import Header from './components/Header/Header';
 import Container from './components/Container/Container';
 import CartDropdown from './components/CartDropdown/CartDropdown';
 
-import Homepage from './pages/Homepage';
-import CategoryPage from './pages/CategoryPage';
-import Shop from './pages/Shop';
-import SignInAndRegister from './pages/SignInAndRegister';
-import Basket from './pages/Basket';
-import OrderConfirmation from './pages/OrderConfirmation';
+import Homepage from './pages/Homepage/Homepage';
+import CategoryPage from './pages/CategoryPage/CategoryPage';
+import Shop from './pages/Shop/Shop';
+import SignInAndRegister from './pages/SignInAndRegister/SignInAndRegister';
+import Basket from './pages/Basket/Basket';
+import OrderConfirmation from './pages/OrderConfirmation/OrderConfirmation';
 
 function App() {
 	const currentUser = useSelector(state => state.user.currentUser);

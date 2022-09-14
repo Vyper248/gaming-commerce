@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledComp = styled.div`
+const StyledSpinner = styled.div`
     margin: 5px auto;
     width: 50px;
     height: 50px;
@@ -29,9 +29,4 @@ const StyledComp = styled.div`
     }
 `
 
-const Spinner = ({children, isLoading=false}) => {
-    if (isLoading) return <StyledComp></StyledComp>;
-    else return <>{children}</>;
-}
-
-export default Spinner;
+export default StyledSpinner;

@@ -1,12 +1,26 @@
-import styled from 'styled-components';
 import StripeCheckout from 'react-stripe-checkout';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { placeOrder } from '../redux/cartSlice';
 
-const StyledComp = styled.div`
-    text-align: right;
-`
+import { placeOrder } from '../../redux/cartSlice';
+
+import StyledStripeButton from './StripeButton.style';
+
+type Card = {
+    [key: string]: string | number | null;
+}
+
+type Token = {
+    card: Card;
+    client_ip: string;
+    created: number;
+    email: string;
+    id: string;
+    livemode: boolean;
+    object: string;
+    type: string;
+    used: boolean;
+}
 
 const StripeButton = ({price=0}) => {
     const history = useHistory();
@@ -14,14 +28,14 @@ const StripeButton = ({price=0}) => {
     const priceForStripe = price*100;
     const publishableKey = 'pk_test_51KQrETELAxdDLRdsNDe0vbmAshFzhrAT3VjOnkS58ICThpAubBu23h0K8f4lwGYEAhjiQYU5HCTEGEHq5PxvDbpa00YZmnJpGZ';
 
-    const onToken = token => {
-        console.log(token);
+    const onToken = (token: Token) => {
+        console.log('Token: ', token);
         dispatch(placeOrder());
         history.push('/Confirmation');
     }
 
     return (
-        <StyledComp>
+        <StyledStripeButton>
             <StripeCheckout
                 label='Pay Now'
                 name='Gaming Ltd'
@@ -31,10 +45,11 @@ const StripeButton = ({price=0}) => {
                 description={`Your total is £${price}`}
                 amount={priceForStripe}
                 panelLabel='Pay Now'
+                //@ts-ignore
                 token={onToken}
                 stripeKey={publishableKey}
             />
-        </StyledComp>
+        </StyledStripeButton>
     );
 }
 

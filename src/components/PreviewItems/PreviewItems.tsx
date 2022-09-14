@@ -9,6 +9,7 @@ import { Item } from '../../redux/shopSlice';
 type PreviewItemsProps = {
     title: string;
     items: Item[];
+    key: string | number;
 }
 
 const PreviewItems = ({title, items}: PreviewItemsProps) => {

@@ -1,14 +1,21 @@
 import { useSelector } from 'react-redux';
+import { RouteComponentProps } from 'react-router-dom';
 
-import Heading from '../components/Heading/Heading';
-import ShopItem from '../components/ShopItem/ShopItem';
-import Grid from '../components/Grid/Grid';
-import Spinner from '../components/Spinner';
+import { RootState } from '../../redux/store';
 
-const CategoryPage = ({match}) => {
+import Heading from '../../components/Heading/Heading';
+import ShopItem from '../../components/ShopItem/ShopItem';
+import Grid from '../../components/Grid/Grid';
+import Spinner from '../../components/Spinner/Spinner';
+
+type MatchParams = {
+    Category: string;
+}
+
+const CategoryPage = ({match}: RouteComponentProps<MatchParams>) => {
     let categoryName = match.params.Category;
-    let shopData = useSelector(state => state.shop.collections);
-    let loadingData = useSelector(state => state.shop.loadingData);
+    let shopData = useSelector((state: RootState) => state.shop.collections);
+    let loadingData = useSelector((state: RootState) => state.shop.loadingData);
 
     let categoryObj = shopData[categoryName];
 

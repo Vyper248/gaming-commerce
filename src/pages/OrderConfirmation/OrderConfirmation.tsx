@@ -1,56 +1,19 @@
-import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { reset } from '../redux/cartSlice';
 
-import Button from '../components/Button/Button';
+import StyledOrderConfirmation from './OrderConfirmation.style';
 
-const StyledComp = styled.div`
-    text-align: center;
+import { CartItem, reset } from '../../redux/cartSlice';
+import { RootState } from '../../redux/store';
 
-    & > table {
-        margin: auto;
-        margin-bottom: 20px;
-        border-collapse: collapse;
-
-        & th {
-            font-weight: bold;
-            height: 50px;
-        }
-
-        & th:first-child,
-        & td:first-child {
-            text-align: left;
-        }
-
-        & > thead > tr,
-        & > tbody tr {
-            border-bottom: 1px solid gray;
-        }
-
-        & > tbody td:nth-child(2) {
-            padding: 10px;
-            text-align: center;
-        }
-
-        & > tbody td:last-child {
-            padding-right: 0px;
-            text-align: right;
-        }
-
-        & > tbody > tr:last-child {
-            border-bottom: none;
-            font-weight: bold;
-        }
-    }
-`
+import Button from '../../components/Button/Button';
 
 const OrderConfirmation = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const items = useSelector(state => state.cart.orderedItems);
-    const totalCost = items.reduce((a, c) => {
+    const items = useSelector((state: RootState) => state.cart.orderedItems);
+    const totalCost = items.reduce((a, c: CartItem) => {
         return a + c.qty * c.item.price;
     }, 0);
     const costString = totalCost.toFixed(2);
@@ -61,7 +24,7 @@ const OrderConfirmation = () => {
     }
 
     return (
-        <StyledComp>
+        <StyledOrderConfirmation>
             <div><strong>Order Successful!</strong></div>
             <table>
                 <thead>
@@ -73,7 +36,7 @@ const OrderConfirmation = () => {
                 </thead>
                 <tbody>
                 {
-                    items.map(item => {
+                    items.map((item: CartItem) => {
                         return (<tr key={item.item.id}>
                             <td>{item.item.name}</td>
                             <td>{item.qty}</td>
@@ -88,7 +51,7 @@ const OrderConfirmation = () => {
                 </tbody>
             </table>
             <Button label='Continue Shopping' onClick={onContinue}/>
-        </StyledComp>
+        </StyledOrderConfirmation>
     );
 }
 

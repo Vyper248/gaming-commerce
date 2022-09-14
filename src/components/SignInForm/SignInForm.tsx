@@ -1,23 +1,13 @@
-import { useState } from 'react';
-import styled from 'styled-components';
-import Button from './Button/Button';
-import Input from './Input/Input';
-import { signInWithGoogle, db } from '../firebase/firebase.utils';
+import { SyntheticEvent, useState } from 'react';
+
+import { signInWithGoogle, db } from '../../firebase/firebase.utils';
 import { collection, getDocs, getDoc, doc } from 'firebase/firestore';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
-const StyledComp = styled.div`
-    display: inline-block;
-    margin: 20px;
-    text-align: left;
-    width: 400px;
-    min-width: 300px;
+import StyledSignInForm from './SignInForm.style';
 
-    & .buttons {
-        display: flex;
-        justify-content: space-between;
-    }
-`
+import Input from '../Input/Input';
+import Button from '../Button/Button';
 
 const SignInForm = () => {
     const [email, setEmail] = useState('');
@@ -49,10 +39,10 @@ const SignInForm = () => {
         });
     }
 
-    const onChangeEmail = (value) => setEmail(value);
-    const onChangePassword =  (value) => setPassword(value);
+    const onChangeEmail = (value: string) => setEmail(value);
+    const onChangePassword =  (value: string) => setPassword(value);
 
-    const onSignIn = async (e) => {
+    const onSignIn = async (e: SyntheticEvent) => {
         e.preventDefault();
 
         try {
@@ -62,9 +52,13 @@ const SignInForm = () => {
             setEmail('');
             setPassword('');
         } catch (error) {            
-            if (error.message.includes('wrong-password')) alert('Incorrect Email or Password');
-            else if (error.message.includes('user-not-found')) alert('Incorrect Email or Password');
-            else console.log(error.message);
+            if (error instanceof Error) {
+                if (error.message.includes('wrong-password')) alert('Incorrect Email or Password');
+                else if (error.message.includes('user-not-found')) alert('Incorrect Email or Password');
+                else console.log(error.message);
+            } else {
+                console.log('Error: ', error);
+            }
         }
 
     }
@@ -74,7 +68,7 @@ const SignInForm = () => {
     }
 
     return (
-        <StyledComp>
+        <StyledSignInForm>
             <h3>I already have an account</h3>
             <p>Sign in with your email and password</p>
             <form onSubmit={onSignIn}>
@@ -86,7 +80,7 @@ const SignInForm = () => {
                     {/* <Button label='Test' onClick={test} backgroundColor='#4285F4'/> */}
                 </div>
             </form>
-        </StyledComp>
+        </StyledSignInForm>
     );
 }
 
