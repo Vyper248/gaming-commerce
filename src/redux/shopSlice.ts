@@ -5,11 +5,11 @@ type SliceState = {
     collections: Collections;
 }
 
-type Collections = {
+export type Collections = {
     [key: string]: Collection;
 }
 
-type Collection = {
+export type Collection = {
     id: number;
     title: string;
     items: Item[];
@@ -268,12 +268,16 @@ export const shopSlice = createSlice({
             let collectionData = action.payload;
             state.collections[collectionData.title] = collectionData;
         },
+        setCollections: (state: SliceState, action: PayloadAction<Collections>) => {
+            let collectionsData = action.payload;
+            state.collections = collectionsData;
+        },
         setLoading: (state: SliceState, action: PayloadAction<boolean>) => {
             state.loadingData = action.payload;
         },
     },
 });
 
-export const { setCollection, setLoading } = shopSlice.actions;
+export const { setCollection, setCollections, setLoading } = shopSlice.actions;
 
 export default shopSlice.reducer;

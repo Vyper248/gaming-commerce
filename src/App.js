@@ -3,9 +3,9 @@ import { Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
 
 import { setUser } from './redux/userSlice';
-import { setCollection, setLoading } from './redux/shopSlice';
+import { setCollections, setLoading } from './redux/shopSlice';
 
-import { auth,  createUseProfileDocument, subscribeToCollections } from './firebase/firebase.utils';
+import { auth,  createUseProfileDocument, subscribeToCategoriesAndItems } from './firebase/firebase.utils';
 import { onSnapshot } from 'firebase/firestore';
 
 import Header from './components/Header/Header';
@@ -26,7 +26,7 @@ function App() {
 
 	useEffect(() => {
 		let unsubscribeFromSnapshot = null;
-		let unsubscriptions = [];
+		let unsubscribeFromCategories = null;
 
 		let unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
 			if (!userAuth) {
@@ -40,19 +40,18 @@ function App() {
 			});
 		});
 
-		//get collections and subscribe to item lists to monitor for item changes
-		//Note: only efficient for a fairly small database of items, helps save firebase allowances
+		// // Subscribe to listener for Categories and Items.
 		// dispatch(setLoading(true));
-		// let handleDataChanges = (collectionData) => {
-		// 	dispatch(setCollection(collectionData));
+		// let handleDataChanges = (categories) => {
+		// 	dispatch(setCollections(categories));
 		// 	dispatch(setLoading(false));
 		// }
-		// subscribeToCollections(unsubscriptions, handleDataChanges);
+		// unsubscribeFromCategories = subscribeToCategoriesAndItems(handleDataChanges);
 
 		return () => {
 			unsubscribeFromAuth();
 			if (unsubscribeFromSnapshot) unsubscribeFromSnapshot();
-			unsubscriptions.forEach(unsubscribe => unsubscribe());
+			if (unsubscribeFromCategories) unsubscribeFromCategories();
 		}
 	}, [dispatch]);
 
