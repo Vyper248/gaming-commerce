@@ -55,6 +55,7 @@ type AdditionalData = {
 	displayName?: string;
 }
 
+//create user document in Firestore if doesn't exist
 export const createUseProfileDocument = async <T extends AdditionalData>(userAuth: User, additionalData: T) => {
 	if (!userAuth) return;
 
@@ -79,6 +80,7 @@ export const createUseProfileDocument = async <T extends AdditionalData>(userAut
 	}
 }
 
+//subscribe to user and auth listener
 export const subscribeToUserAuth = async (dispatch: Dispatch) => {
 	let unsubscribeFromSnapshot;
 	let unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
@@ -90,14 +92,15 @@ export const subscribeToUserAuth = async (dispatch: Dispatch) => {
 		await createUseProfileDocument(userAuth, {});
 		let userRef = doc(db, 'users', userAuth.uid);
 		unsubscribeFromSnapshot = onSnapshot(userRef, (doc) => {
-			let data = doc.data() as UserData;
-			dispatch(setUser({...data, id: doc.id}));
+			let userData = doc.data() as UserData;
+			dispatch(setUser(userData));
 		});
 	});
 
 	return [unsubscribeFromSnapshot, unsubscribeFromAuth];
 }
 
+//add data to Firestore
 export const addCollectionAndItems = async (collectionKey: string, collectionItems: Collection[]): Promise<void> => {
 	try {
 		const batch = writeBatch(db);
@@ -115,7 +118,7 @@ export const addCollectionAndItems = async (collectionKey: string, collectionIte
 	}
 }
 
-//returns categories and items, but no listener to check for data changes
+//returns categories and items
 export const getCategoriesAndItems = async (): Promise<Collections> => {
 	const querySnapshot = await getDocs(collection(db, 'categories'));
 
@@ -130,7 +133,7 @@ export const getCategoriesAndItems = async (): Promise<Collections> => {
 
 type DataHandler = (categories: Collections) => void;
 
-//gets data and also subscribes to listener for changes
+//gets data and subscribes to listener for changes
 export const subscribeToCategoriesAndItems = (dataHandler: DataHandler): Unsubscribe => {
 	const collectionRef = collection(db, 'categories');
 	const q = query(collectionRef);
