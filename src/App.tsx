@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 
-import { setUser } from './redux/userSlice';
-import { setCollections, setLoading } from './redux/shopSlice';
+import { Collections, setCollections, setLoading } from './redux/shopSlice';
+import { RootState } from './redux/store';
 
-import { auth,  createUseProfileDocument, subscribeToCategoriesAndItems } from './firebase/firebase.utils';
-import { onSnapshot } from 'firebase/firestore';
+import { subscribeToCategoriesAndItems, subscribeToUserAuth } from './firebase/firebase.utils';
+import { Unsubscribe } from 'firebase/firestore';
 
 import Header from './components/Header/Header';
 import Container from './components/Container/Container';
@@ -20,38 +20,32 @@ import Basket from './pages/Basket/Basket';
 import OrderConfirmation from './pages/OrderConfirmation/OrderConfirmation';
 
 function App() {
-	const currentUser = useSelector(state => state.user.currentUser);
-	const orderedItems = useSelector(state => state.cart.orderedItems);
+	const currentUser = useSelector((state: RootState) => state.user.currentUser);
+	const orderedItems = useSelector((state: RootState) => state.cart.orderedItems);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		let unsubscribeFromSnapshot = null;
-		let unsubscribeFromCategories = null;
+		let unsubscribeFromCategories: Unsubscribe | undefined;
+		let unsubscribeFromSnapshot: Unsubscribe | undefined;
+		let unsubscribeFromAuth: Unsubscribe | undefined;
 
-		let unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-			if (!userAuth) {
-				dispatch(setUser(null));
-				return;
-			}
-
-			let userRef = await createUseProfileDocument(userAuth);
-			unsubscribeFromSnapshot = onSnapshot(userRef, snapshot => {
-				dispatch(setUser({id: snapshot.id, ...snapshot.data()}));
-			});
-		});
+		const subscribe = async () => {
+			[unsubscribeFromSnapshot, unsubscribeFromAuth] = await subscribeToUserAuth(dispatch);
+		}
+		subscribe();
 
 		// // Subscribe to listener for Categories and Items.
 		// dispatch(setLoading(true));
-		// let handleDataChanges = (categories) => {
+		// let handleDataChanges = (categories: Collections) => {
 		// 	dispatch(setCollections(categories));
 		// 	dispatch(setLoading(false));
 		// }
 		// unsubscribeFromCategories = subscribeToCategoriesAndItems(handleDataChanges);
 
 		return () => {
-			unsubscribeFromAuth();
-			if (unsubscribeFromSnapshot) unsubscribeFromSnapshot();
 			if (unsubscribeFromCategories) unsubscribeFromCategories();
+			if (unsubscribeFromSnapshot) unsubscribeFromSnapshot();
+			if (unsubscribeFromAuth) unsubscribeFromAuth();
 		}
 	}, [dispatch]);
 

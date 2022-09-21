@@ -1,11 +1,14 @@
 // Import the functions you need from the SDKs you need
+import { Dispatch } from "@reduxjs/toolkit";
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithPopup, User } from "firebase/auth";
-import { getFirestore, doc, collection, getDoc, getDocs, query, setDoc, writeBatch, onSnapshot, Unsubscribe } from "firebase/firestore";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, User } from "firebase/auth";
+import { getFirestore, doc, collection, getDoc, getDocs, query, setDoc, writeBatch, onSnapshot, Unsubscribe, QueryDocumentSnapshot, DocumentSnapshot, DocumentData, DocumentReference } from "firebase/firestore";
+import { idText } from "typescript";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 import { Collection, Collections } from "../redux/shopSlice";
+import { setUser, UserData } from "../redux/userSlice";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -37,6 +40,17 @@ export const signInWithGoogle = async () => {
 	}
 }
 
+export const signInUserWithEmailAndPassword = async (email: string, password: string) => {
+	if (!email || !password) return;
+
+	await signInWithEmailAndPassword(auth, email, password);
+}
+
+export const registerWithEmailAndPassword = async (email: string, password: string, displayName: string) => {
+	let { user } = await createUserWithEmailAndPassword(auth, email, password);
+    await createUseProfileDocument(user, {displayName: displayName});
+}
+
 type AdditionalData = {
 	displayName?: string;
 }
@@ -63,8 +77,25 @@ export const createUseProfileDocument = async <T extends AdditionalData>(userAut
 			else console.log('Error creating user: ', error);
 		}
 	}
+}
 
-	return userRef;
+export const subscribeToUserAuth = async (dispatch: Dispatch) => {
+	let unsubscribeFromSnapshot;
+	let unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+		if (!userAuth) {
+			dispatch(setUser(null));
+			return;
+		}
+
+		await createUseProfileDocument(userAuth, {});
+		let userRef = doc(db, 'users', userAuth.uid);
+		unsubscribeFromSnapshot = onSnapshot(userRef, (doc) => {
+			let data = doc.data() as UserData;
+			dispatch(setUser({...data, id: doc.id}));
+		});
+	});
+
+	return [unsubscribeFromSnapshot, unsubscribeFromAuth];
 }
 
 export const addCollectionAndItems = async (collectionKey: string, collectionItems: Collection[]): Promise<void> => {

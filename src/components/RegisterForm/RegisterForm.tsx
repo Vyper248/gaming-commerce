@@ -1,7 +1,6 @@
 import { ChangeEvent, SyntheticEvent, useState } from 'react';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
-import { createUseProfileDocument } from '../../firebase/firebase.utils';
+import { registerWithEmailAndPassword } from '../../firebase/firebase.utils';
 
 import StyledRegisterForm from './RegisterForm.style';
 import Button from '../Button/Button';
@@ -17,9 +16,7 @@ const RegisterForm = () => {
         e.preventDefault();
 
         try {
-            let auth = getAuth();
-            let { user } = await createUserWithEmailAndPassword(auth, email, password);
-            await createUseProfileDocument(user, {displayName: displayName});
+            await registerWithEmailAndPassword(email, password, displayName);
         } catch (error) {
             if (error instanceof Error) {
                 console.log('Error creating user: ', error.message);

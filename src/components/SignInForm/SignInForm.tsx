@@ -1,8 +1,6 @@
 import { SyntheticEvent, useState } from 'react';
 
-import { signInWithGoogle, db } from '../../firebase/firebase.utils';
-import { collection, getDocs, getDoc, doc } from 'firebase/firestore';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithGoogle, signInUserWithEmailAndPassword } from '../../firebase/firebase.utils';
 
 import StyledSignInForm from './SignInForm.style';
 
@@ -13,32 +11,6 @@ const SignInForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    //example of how to get documents and collections from database
-    const test = async () => {
-        //get a single document with id
-        const singleDoc = await getDoc(doc(db, 'users', 'f7cCad3AF7lr5gJIAZfw'));
-        console.log(singleDoc.data());
-
-        //get multiple documents
-        const querySnapshot = await getDocs(collection(db, "users"));
-        querySnapshot.forEach(async (document) => {
-          console.log(document.data());
-
-          //get further collection data with a docRef
-          const docRef = doc(db, "users", document.id);
-          const querySnapshot2 = await getDocs(collection(docRef, "cartItems"));
-          querySnapshot2.forEach(document2 => {
-              console.log(document2.data());
-          });
-
-          //or by using path
-          const querySnapshot3 = await getDocs(collection(db, `users/${document.id}/cartItems`));
-          querySnapshot3.forEach(document3 => {
-              console.log(document3.data());
-          })
-        });
-    }
-
     const onChangeEmail = (value: string) => setEmail(value);
     const onChangePassword =  (value: string) => setPassword(value);
 
@@ -46,8 +18,7 @@ const SignInForm = () => {
         e.preventDefault();
 
         try {
-            let auth = getAuth();
-            await signInWithEmailAndPassword(auth, email, password);
+            await signInUserWithEmailAndPassword(email, password);
 
             setEmail('');
             setPassword('');
