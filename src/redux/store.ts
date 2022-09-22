@@ -15,7 +15,7 @@ const localStorageMiddleware: Middleware = ({getState}) => next => action => {
 	//only save the following states
 	let state = getState();
 	let saveObj: {[key: string]: string | number | object} = {};
-	let whitelist = ['cart'];
+	let whitelist: (keyof RootState)[] = ['cart'];
 	whitelist.forEach(key => {
 		saveObj[key] = state[key];
 	});
