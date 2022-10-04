@@ -9,6 +9,7 @@ import { increaseQty, decreaseQty, removeItem, CartItem } from '../../redux/cart
 import QuantitySelector from '../../components/QuantitySelector/QuantitySelector';
 import IconButton from '../../components/IconButton/IconButton';
 import StripeButton from '../../components/StripeButton/StripeButton';
+import CheckoutForm from '../../components/CheckoutForm/CheckoutForm';
 
 const BasketRow = ({item, qty}: CartItem) => {
     const dispatch = useDispatch();
@@ -61,7 +62,8 @@ const Basket = () => {
                 Card Number: 4242 4242 4242 4242 <br/>
                 Date: Any future date, CVV: Any 3 digit number
             </div>
-            <StripeButton price={costString}/>
+            <CheckoutForm/>
+            {/* <StripeButton price={costString}/> */}
         </StyledBasket>
     );
 }

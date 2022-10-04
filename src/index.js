@@ -1,18 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter as Router } from 'react-router-dom';
+
 import './index.css';
+
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+
 import store from './redux/store'
 import { Provider } from 'react-redux'
+
+import { Elements } from '@stripe/react-stripe-js';
+import { stripePromise } from './utils/stripe/stripe.utils.ts';
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <Provider store={store}>
-        <App />
+        <Elements stripe={stripePromise}>
+          <App />
+        </Elements>
       </Provider>
     </Router>
   </React.StrictMode>,

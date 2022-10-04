@@ -1,13 +1,11 @@
-import React from 'react';
+import { ButtonHTMLAttributes } from 'react';
 import StyledButton from './Button.style';
 
 type ButtonProps = {
     label: string;
     backgroundColor?: string;
-    onClick?: () => void;
     width?: string;
-    type?: string;
-}
+} & ButtonHTMLAttributes<HTMLButtonElement>
 
 const Button = ({label, backgroundColor='black', ...otherProps}: ButtonProps) => {
     return (
