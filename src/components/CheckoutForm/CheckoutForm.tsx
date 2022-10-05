@@ -1,14 +1,59 @@
-import React from 'react';
-import { useStripe, useElements, CardElement, PaymentElement } from '@stripe/react-stripe-js';
-import { StripeCardElement } from '@stripe/stripe-js/types/stripe-js/elements';
+import React, { useEffect, useState, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js';
+
+import { placeOrder } from '../../redux/cartSlice';
+import { useDispatch } from 'react-redux';
 
 import StyledCheckoutForm from "./CheckoutForm.style";
 
 import Button from '../Button/Button';
+import { PaymentIntent } from '@stripe/stripe-js';
 
 const CheckoutForm = () => {
+    const history = useHistory();
+    const dispatch = useDispatch();
     const stripe = useStripe();
     const elements = useElements();
+
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState<string | undefined>("");
+
+    //checks Stripe payment intent to decide what to show the user
+    const handlePaymentIntent = useCallback((paymentIntent: PaymentIntent | undefined) => {
+        if (!paymentIntent) return;
+
+        switch (paymentIntent.status) {
+            case "succeeded":
+                dispatch(placeOrder());
+                history.push('/Confirmation');
+                break;
+            case "processing":
+                setMessage('Your payment is processing.');
+                break;
+            case "requires_payment_method":
+                setMessage("Your payment was not successful, please try again.");
+                break;
+            default:
+                setMessage("Something went wrong.");
+                break;
+        }
+    },[dispatch, history]);
+
+    //Check if payment was successful, happens when redirected back to this page, if using a redirect payment option.
+    useEffect(() => {
+        if (!stripe) return;
+
+        const clientSecret = new URLSearchParams(window.location.search).get(
+            "payment_intent_client_secret"
+        );
+
+        if (!clientSecret) return;
+
+        stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
+            handlePaymentIntent(paymentIntent);
+        });
+    }, [stripe, handlePaymentIntent]);
 
     const handleSubmit = async (event: React.SyntheticEvent) => {
         // We don't want to let default form submission happen here,
@@ -17,40 +62,39 @@ const CheckoutForm = () => {
 
         if (!stripe || !elements) {
             // Stripe.js has not yet loaded.
-            // Make sure to disable form submission until Stripe.js has loaded.
             return;
         }
 
-        const response = await fetch('/.netlify/functions/create-payment-intent', {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ amount: 10000 })
-        }).then(resp => resp.json());
+        setLoading(true);
 
-        const { paymentIntent: { client_secret } } = response;
-
-        const paymentResult = await stripe.confirmCardPayment(client_secret, {
-            payment_method: {
-                card: elements.getElement(CardElement) as StripeCardElement,
-                billing_details: {
-                    name: 'Chris'
-                }
-            }
+        const { error, paymentIntent } = await stripe.confirmPayment({
+            elements,
+            confirmParams: {
+                return_url: window.location.href
+            },
+            redirect: 'if_required'
         });
 
-        if (paymentResult.error) {
-            console.log(paymentResult.error);
-        } else if (paymentResult.paymentIntent.status === 'succeeded') {
-            console.log('Payment Successful');
+        setLoading(false);
+
+        if (error && (error.type === "card_error" || error.type === "validation_error")) {
+            setMessage(error.message);
+        } else if (error) {
+            setMessage("An unexpected error occurred.");
         }
+
+        handlePaymentIntent(paymentIntent);
     };
 
     return (
         <StyledCheckoutForm>
             <form onSubmit={handleSubmit}>
                 <h2>Card Payment</h2>
-                <CardElement />
-                <Button label='Pay Now' backgroundColor='black' disabled={!stripe} />
+                <PaymentElement />
+                <div style={{ textAlign: 'right' }}>
+                    <Button label='Pay Now' width='150px' backgroundColor='black' disabled={!stripe} isLoading={loading} />
+                </div>
+                {message && <div style={{ textAlign: 'center', color: 'red' }}>{message}</div>}
             </form>
         </StyledCheckoutForm>
     )

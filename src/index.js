@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import './index.css';
 
@@ -11,16 +11,13 @@ import reportWebVitals from './reportWebVitals';
 import store from './redux/store'
 import { Provider } from 'react-redux'
 
-import { Elements } from '@stripe/react-stripe-js';
-import { stripePromise } from './utils/stripe/stripe.utils.ts';
-
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <Provider store={store}>
-        <Elements stripe={stripePromise}>
+        {/* <Elements stripe={stripePromise}> */}
           <App />
-        </Elements>
+        {/* </Elements> */}
       </Provider>
     </Router>
   </React.StrictMode>,

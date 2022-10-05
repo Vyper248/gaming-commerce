@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { FaTrashAlt } from 'react-icons/fa';
+import { useHistory } from 'react-router-dom';
 
 import StyledBasket, { StyledImage } from './Basket.style';
 
@@ -8,10 +9,10 @@ import { increaseQty, decreaseQty, removeItem, CartItem } from '../../redux/cart
 
 import QuantitySelector from '../../components/QuantitySelector/QuantitySelector';
 import IconButton from '../../components/IconButton/IconButton';
-import StripeButton from '../../components/StripeButton/StripeButton';
-import CheckoutForm from '../../components/CheckoutForm/CheckoutForm';
+import Container from '../../components/Container/Container';
+import Button from '../../components/Button/Button';
 
-const BasketRow = ({item, qty}: CartItem) => {
+const BasketRow = ({ item, qty }: CartItem) => {
     const dispatch = useDispatch();
 
     const onIncrease = () => dispatch(increaseQty(item));
@@ -19,51 +20,62 @@ const BasketRow = ({item, qty}: CartItem) => {
     const onRemove = () => dispatch(removeItem(item));
 
     return (<tr>
-        <td><StyledImage imageURL={item.imageURL}/></td>
+        <td><StyledImage imageURL={item.imageURL} /></td>
         <td>{item.name}</td>
-        <td><QuantitySelector qty={qty} onIncrease={onIncrease} onDecrease={onDecrease}/></td>
+        <td><QuantitySelector qty={qty} onIncrease={onIncrease} onDecrease={onDecrease} /></td>
         <td>£{item.price}</td>
-        <td><IconButton Icon={FaTrashAlt} onClick={onRemove}/></td>
+        <td><IconButton Icon={FaTrashAlt} onClick={onRemove} /></td>
     </tr>)
 }
 
 const Basket = () => {
+    const history = useHistory();
+
+    const currentUser = useSelector((state: RootState) => state.user.currentUser);
     const items = useSelector((state: RootState) => state.cart.items);
+
     const totalCost = items.reduce((a, c: CartItem) => {
         return a + c.qty * c.item.price;
     }, 0);
     const costString = totalCost;
 
+    const onCheckout = () => {
+        if (!currentUser) {
+            history.push('/SignIn');
+        } else {
+            history.push('/Checkout');
+        }
+    }
+
     return (
         <StyledBasket>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Description</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Remove</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {
-                    items.map((item: CartItem) => {
-                        return <BasketRow key={item.item.id} item={item.item} qty={item.qty}/>
-                    })
-                }
-                </tbody>
-            </table>
-            <div className='totalCost'>
-                TOTAL: £{costString.toFixed(2)}
-            </div>
-            <div id='stripeDetails'>
-                Please use the following test details for payment: <br/>
-                Card Number: 4242 4242 4242 4242 <br/>
-                Date: Any future date, CVV: Any 3 digit number
-            </div>
-            <CheckoutForm/>
-            {/* <StripeButton price={costString}/> */}
+            <h2>Basket</h2>
+            <Container>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            items.map((item: CartItem) => {
+                                return <BasketRow key={item.item.id} item={item.item} qty={item.qty} />
+                            })
+                        }
+                    </tbody>
+                </table>
+                <div className='totalCost'>
+                    TOTAL: £{costString.toFixed(2)}
+                </div>
+                <div style={{textAlign: 'right'}}>
+                    <Button label='Checkout' style={{marginLeft: 'auto'}} onClick={onCheckout}/>
+                </div>
+            </Container>
         </StyledBasket>
     );
 }

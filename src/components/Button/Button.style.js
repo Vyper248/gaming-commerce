@@ -5,7 +5,7 @@ const StyledButton = styled.button`
     color: white;
     background-color: ${props => props.backgroundColor};
     display: inline-block;
-    padding: 20px;
+    padding: ${props => props.isLoading ? '7.25px' : '20px'};
     text-align: center;
     width: ${props => props.width ? props.width : 'auto'};
     min-width: 140px;

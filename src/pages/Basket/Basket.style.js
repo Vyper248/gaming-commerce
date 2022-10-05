@@ -5,9 +5,14 @@ const StyledBasket = styled.div`
     margin: auto;
     margin-bottom: 30px;
 
-    & > table {
+    & > h2 {
+        text-align: center;
+    }
+
+    & table {
         margin: auto;
         border-collapse: collapse;
+        width: 100%;
 
         & th {
             width: 190px;
@@ -38,13 +43,13 @@ const StyledBasket = styled.div`
         }
     }
 
-    & > .totalCost {
+    & .totalCost {
         text-align: right;
         padding: 20px 0px;
         font-size: 2em;
     }
 
-    & > #stripeDetails {
+    & #stripeDetails {
         color: Red;
         margin-bottom: 10px;
         text-align: right;
