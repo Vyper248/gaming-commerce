@@ -3,12 +3,16 @@ import { useHistory } from 'react-router-dom';
 import { useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js';
 
 import { placeOrder } from '../../redux/cartSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import StyledCheckoutForm from "./CheckoutForm.style";
 
 import Button from '../Button/Button';
 import { PaymentIntent } from '@stripe/stripe-js';
+import { updateCurrentUser } from 'firebase/auth';
+import { RootState } from '../../redux/store';
+import { UserData } from '../../redux/userSlice';
+import { current } from '@reduxjs/toolkit';
 
 const CheckoutForm = () => {
     const history = useHistory();
@@ -18,6 +22,8 @@ const CheckoutForm = () => {
 
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState<string | undefined>("");
+
+    const currentUser = useSelector((state: RootState) => state.user.currentUser as UserData | null);
 
     //checks Stripe payment intent to decide what to show the user
     const handlePaymentIntent = useCallback((paymentIntent: PaymentIntent | undefined) => {
@@ -60,6 +66,8 @@ const CheckoutForm = () => {
         // which would refresh the page.
         event.preventDefault();
 
+        if (currentUser === null) return;
+
         if (!stripe || !elements) {
             // Stripe.js has not yet loaded.
             return;
@@ -70,7 +78,12 @@ const CheckoutForm = () => {
         const { error, paymentIntent } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                return_url: window.location.href
+                return_url: window.location.href,
+                payment_method_data: {
+                    billing_details: {
+                        name: currentUser.displayName
+                    }
+                }
             },
             redirect: 'if_required'
         });

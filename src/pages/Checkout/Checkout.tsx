@@ -7,6 +7,7 @@ import StyledBasket, { StyledImage } from '../Basket/Basket.style';
 
 import { RootState } from '../../redux/store';
 import { CartItem } from '../../redux/cartSlice';
+import { selectTotalCost } from '../../redux/selectors';
 import { stripePromise } from '../../utils/stripe/stripe.utils';
 
 import CheckoutForm from '../../components/CheckoutForm/CheckoutForm';
@@ -27,9 +28,7 @@ const Checkout = () => {
 
     const currentUser = useSelector((state: RootState) => state.user.currentUser);
     const items = useSelector((state: RootState) => state.cart.items);
-    const totalCost = items.reduce((a, c: CartItem) => {
-        return a + c.qty * c.item.price;
-    }, 0);
+    const totalCost = useSelector(selectTotalCost);
     const costString = totalCost;
 
     useEffect(() => {

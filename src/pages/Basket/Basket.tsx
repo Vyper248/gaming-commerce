@@ -6,6 +6,7 @@ import StyledBasket, { StyledImage } from './Basket.style';
 
 import { RootState } from '../../redux/store';
 import { increaseQty, decreaseQty, removeItem, CartItem } from '../../redux/cartSlice';
+import { selectTotalCost } from '../../redux/selectors';
 
 import QuantitySelector from '../../components/QuantitySelector/QuantitySelector';
 import IconButton from '../../components/IconButton/IconButton';
@@ -33,10 +34,7 @@ const Basket = () => {
 
     const currentUser = useSelector((state: RootState) => state.user.currentUser);
     const items = useSelector((state: RootState) => state.cart.items);
-
-    const totalCost = items.reduce((a, c: CartItem) => {
-        return a + c.qty * c.item.price;
-    }, 0);
+    const totalCost = useSelector(selectTotalCost);
     const costString = totalCost;
 
     const onCheckout = () => {
