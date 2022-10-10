@@ -113,9 +113,9 @@ const CheckoutForm = () => {
     return (
         <StyledCheckoutForm>
             <form onSubmit={handleSubmit}>
-                <h2>Shipping Address</h2>
+                <h3>Shipping Address</h3>
                 <AddressElement options={addressDefaults}/>
-                <h2>Card Payment</h2>
+                <h3>Card Payment</h3>
                 <PaymentElement />
                 <div style={{ textAlign: 'right' }}>
                     <Button label='Pay Now' width='150px' backgroundColor='black' disabled={!stripe} isLoading={loading} />
