@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js';
+import { useStripe, useElements, PaymentElement, AddressElement } from '@stripe/react-stripe-js';
+import { PaymentIntent, StripeAddressElementOptions } from '@stripe/stripe-js';
 
 import { placeOrder } from '../../redux/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,11 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import StyledCheckoutForm from "./CheckoutForm.style";
 
 import Button from '../Button/Button';
-import { PaymentIntent } from '@stripe/stripe-js';
-import { updateCurrentUser } from 'firebase/auth';
 import { RootState } from '../../redux/store';
 import { UserData } from '../../redux/userSlice';
-import { current } from '@reduxjs/toolkit';
 
 const CheckoutForm = () => {
     const history = useHistory();
@@ -92,16 +90,31 @@ const CheckoutForm = () => {
 
         if (error && (error.type === "card_error" || error.type === "validation_error")) {
             setMessage(error.message);
+            console.log(error);
         } else if (error) {
             setMessage("An unexpected error occurred.");
+            console.log(error);
         }
 
         handlePaymentIntent(paymentIntent);
     };
 
+    const addressDefaults: StripeAddressElementOptions = {
+        mode: 'shipping', 
+        allowedCountries: ['GB', 'DE', 'FR'],
+        defaultValues: {
+            name: currentUser ? currentUser.displayName : '',
+            address: {
+                country: 'GB'
+            }
+        }
+    };
+
     return (
         <StyledCheckoutForm>
             <form onSubmit={handleSubmit}>
+                <h2>Shipping Address</h2>
+                <AddressElement options={addressDefaults}/>
                 <h2>Card Payment</h2>
                 <PaymentElement />
                 <div style={{ textAlign: 'right' }}>
