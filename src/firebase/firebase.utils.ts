@@ -2,8 +2,7 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, User } from "firebase/auth";
-import { getFirestore, doc, collection, getDoc, getDocs, query, setDoc, writeBatch, onSnapshot, Unsubscribe, QueryDocumentSnapshot, DocumentSnapshot, DocumentData, DocumentReference } from "firebase/firestore";
-import { idText } from "typescript";
+import { getFirestore, doc, collection, getDoc, getDocs, query, setDoc, writeBatch, onSnapshot, Unsubscribe } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 

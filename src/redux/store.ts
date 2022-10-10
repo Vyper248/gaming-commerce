@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import userReducer from './userSlice'
 import cartReducer from './cartSlice';
-import shopReducer from './shopSlice';
 
 import { Middleware } from '@reduxjs/toolkit';
 
@@ -33,8 +32,7 @@ const reHydrateStore = () => {
 const store = configureStore({
 	reducer: {
 		user: userReducer,
-		cart: cartReducer,
-		shop: shopReducer,
+		cart: cartReducer
 	},
 	preloadedState: reHydrateStore(),
   	middleware: getDefaultMiddleware =>

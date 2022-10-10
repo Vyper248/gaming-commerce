@@ -39,7 +39,7 @@ const StyledCategoryButton = styled.div`
             left: 0px;
             width: 100%;
             height: 100%;
-            background-image: url('${props => props.imageURL}');
+            background-image: url('/${props => props.imageURL}');
             background-size: cover;
             background-position: center;
             transition: 0.5s;

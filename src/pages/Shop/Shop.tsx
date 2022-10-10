@@ -1,19 +1,23 @@
-import { useSelector } from 'react-redux';
-
-import { RootState } from '../../redux/store';
-// import { addCollectionAndItems } from '../../firebase/firebase.utils';
+import { useQuery } from '@apollo/client';
 
 import PreviewItems from '../../components/PreviewItems/PreviewItems';
 import Spinner from '../../components/Spinner/Spinner';
 
-const Shop = () => {
-    const shopData = useSelector((state: RootState) => state.shop.collections);
-    const loadingData = useSelector((state: RootState) => state.shop.loadingData);
+import { GET_CATEGORIES } from '../../utils/gql/gql.categories';
+import { convertArrToObj } from '../../utils/gql/gql.utils';
+import { Collections } from '../../redux/shopSlice';
 
-    // addCollectionAndItems('categories', Object.values(shopData));
+const Shop = () => {
+    const { loading, error, data } = useQuery(GET_CATEGORIES);
+
+    if (error) {
+        return <p>Error Loading Data - {error.message}</p>;
+    }
+
+    const shopData = convertArrToObj(data?.categories) as Collections;
 
     return (
-        <Spinner isLoading={loadingData}>
+        <Spinner isLoading={loading}>
             {
                 Object.values(shopData).map(obj => <PreviewItems key={obj.id} {...obj}/>)
             }
@@ -21,4 +25,4 @@ const Shop = () => {
     );
 }
 
-export default Shop; 
+export default Shop;

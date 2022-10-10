@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
 import './index.css';
 
 import App from './App';
@@ -11,15 +13,22 @@ import reportWebVitals from './reportWebVitals';
 import store from './redux/store'
 import { Provider } from 'react-redux'
 
+const client = new ApolloClient({
+  uri: 'http://localhost:4000',
+  cache: new InMemoryCache(),
+});
+
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <Provider store={store}>
-        {/* <Elements stripe={stripePromise}> */}
+    <ApolloProvider client={client}>
+      <Router>
+        <Provider store={store}>
+          {/* <Elements stripe={stripePromise}> */}
           <App />
-        {/* </Elements> */}
-      </Provider>
-    </Router>
+          {/* </Elements> */}
+        </Provider>
+      </Router>
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

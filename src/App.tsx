@@ -2,10 +2,9 @@ import { useEffect } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { Collections, setCollections, setLoading } from './redux/shopSlice';
 import { RootState } from './redux/store';
 
-import { subscribeToCategoriesAndItems, subscribeToUserAuth } from './firebase/firebase.utils';
+import { subscribeToUserAuth } from './firebase/firebase.utils';
 import { Unsubscribe } from 'firebase/firestore';
 
 import Header from './components/Header/Header';
@@ -35,14 +34,6 @@ function App() {
 			[unsubscribeFromSnapshot, unsubscribeFromAuth] = await subscribeToUserAuth(dispatch);
 		}
 		subscribe();
-
-		// // Subscribe to listener for Categories and Items.
-		// dispatch(setLoading(true));
-		// let handleDataChanges = (categories: Collections) => {
-		// 	dispatch(setCollections(categories));
-		// 	dispatch(setLoading(false));
-		// }
-		// unsubscribeFromCategories = subscribeToCategoriesAndItems(handleDataChanges);
 
 		return () => {
 			if (unsubscribeFromCategories) unsubscribeFromCategories();

@@ -1,4 +1,4 @@
-import { MouseEvent, SyntheticEvent } from 'react';
+import { MouseEvent } from 'react';
 import { useHistory } from 'react-router';
 import { useDispatch } from 'react-redux';
 
