@@ -19,12 +19,13 @@ const ShopItem = ({item, category}: ShopItemProps) => {
     const onClick = () => {
         history.push(`/Shop/${category}/${item.id}`)
     }
-
-const onClickCart = (e: MouseEvent) => {
+    
+    const onClickCart = (e: MouseEvent) => {
         e.stopPropagation();
+
         dispatch(addItem({
-            item: item,
-            qty: 1,
+            id: item.id,
+            qty: 1
         }));
     }
 

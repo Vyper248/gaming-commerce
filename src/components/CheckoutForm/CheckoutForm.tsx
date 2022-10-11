@@ -12,7 +12,13 @@ import Button from '../Button/Button';
 import { RootState } from '../../redux/store';
 import { UserData } from '../../redux/userSlice';
 
-const CheckoutForm = () => {
+import { DisplayCartItem } from '../../redux/cartSlice';
+
+type CheckoutFormProps = {
+    items: DisplayCartItem[];
+}
+
+const CheckoutForm = ({items}: CheckoutFormProps) => {
     const history = useHistory();
     const dispatch = useDispatch();
     const stripe = useStripe();
@@ -29,7 +35,7 @@ const CheckoutForm = () => {
 
         switch (paymentIntent.status) {
             case "succeeded":
-                dispatch(placeOrder());
+                dispatch(placeOrder(items));
                 history.push('/Confirmation');
                 break;
             case "processing":
@@ -42,7 +48,7 @@ const CheckoutForm = () => {
                 setMessage("Something went wrong.");
                 break;
         }
-    },[dispatch, history]);
+    },[dispatch, history, items]);
 
     //Check if payment was successful, happens when redirected back to this page, if using a redirect payment option.
     useEffect(() => {

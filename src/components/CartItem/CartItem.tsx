@@ -1,8 +1,8 @@
 import StyledCartItem from "./CartItem.style";
-import { CartItem as CartItemType } from "../../redux/cartSlice";
+import { DisplayCartItem } from "../../redux/cartSlice";
 
 type CartItemProps = {
-    cartItem: CartItemType;
+    cartItem: DisplayCartItem;
 }
 
 const CartItem = ({cartItem}: CartItemProps) => {

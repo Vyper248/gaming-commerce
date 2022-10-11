@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import StyledOrderConfirmation from './OrderConfirmation.style';
 
-import { CartItem, reset } from '../../redux/cartSlice';
+import { DisplayCartItem, reset } from '../../redux/cartSlice';
 import { RootState } from '../../redux/store';
 
 import Button from '../../components/Button/Button';
@@ -13,7 +13,7 @@ const OrderConfirmation = () => {
     const history = useHistory();
 
     const items = useSelector((state: RootState) => state.cart.orderedItems);
-    const totalCost = items.reduce((a, c: CartItem) => {
+    const totalCost = items.reduce((a, c: DisplayCartItem) => {
         return a + c.qty * c.item.price;
     }, 0);
     const costString = totalCost.toFixed(2);
@@ -36,7 +36,7 @@ const OrderConfirmation = () => {
                 </thead>
                 <tbody>
                 {
-                    items.map((item: CartItem) => {
+                    items.map((item: DisplayCartItem) => {
                         return (<tr key={item.item.id}>
                             <td>{item.item.name}</td>
                             <td>{item.qty}</td>

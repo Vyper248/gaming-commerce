@@ -13,7 +13,7 @@ const StyledCartDropdown = styled.div`
     z-index: 2;
     padding: 20px;
 
-    & > div {
+    & div#cartItems {
         width: calc(100% - 10px);
         margin: 5px;
         flex-grow: 1;
@@ -24,7 +24,7 @@ const StyledCartDropdown = styled.div`
         }
     }
 
-    & > div.empty {
+    & div.empty {
         text-align: center;
     }
 `

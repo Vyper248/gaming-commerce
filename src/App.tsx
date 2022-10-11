@@ -23,6 +23,7 @@ function App() {
 	const currentUser = useSelector((state: RootState) => state.user.currentUser);
 	const orderedItems = useSelector((state: RootState) => state.cart.orderedItems);
 	const cartItems = useSelector((state: RootState) => state.cart.items);
+	const cartOpen = useSelector((state: RootState) => state.cart.open);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -45,7 +46,7 @@ function App() {
 	return (
 		<div className="App">
 			<Header/>
-			<CartDropdown/>
+			{ cartOpen ? <CartDropdown/> : null }
 			<Container>
 				<Route exact path='/' component={Homepage}/>
 				<Route exact path='/Shop' component={Shop}/>

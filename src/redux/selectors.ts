@@ -4,8 +4,9 @@ import { RootState } from './store';
 
 const selectCartItems = (state: RootState) => state.cart.items;
 
-export const selectTotalCost = createSelector(selectCartItems, (items) => {
-    return items.reduce((a, c: CartItem) => {
-        return a + (c.qty * c.item.price);
-    }, 0);
+export const selectCartIds = createSelector(selectCartItems, (items) => {
+    return items.reduce((acc, c: CartItem): number[] => {
+        acc.push(c.id);
+        return acc;
+    }, [] as number[])
 });

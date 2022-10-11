@@ -5,10 +5,15 @@ import { Item } from './shopSlice';
 type SliceState = {
     open: boolean;
     items: CartItem[];
-    orderedItems: CartItem[];
+    orderedItems: DisplayCartItem[];
 }
 
 export type CartItem = {
+    id: number;
+    qty: number;
+}
+
+export type DisplayCartItem = {
     item: Item;
     qty: number;
 }
@@ -27,7 +32,7 @@ const cartSlice = createSlice({
             state.open = !state.open;
         },
         addItem: (state: SliceState, action: PayloadAction<CartItem>) => {
-            let existingItem = state.items.find(item => item.item.id === action.payload.item.id);
+            let existingItem = state.items.find(item => item.id === action.payload.id);
             if (existingItem) {
                 existingItem.qty++;
             } else {
@@ -36,18 +41,18 @@ const cartSlice = createSlice({
             state.orderedItems = [];
         },
         increaseQty: (state: SliceState, action: PayloadAction<Item>) => {
-            let existingItem = state.items.find(item => item.item.id === action.payload.id);
+            let existingItem = state.items.find(item => item.id === action.payload.id);
             if (existingItem) existingItem.qty++;
         },
         decreaseQty: (state: SliceState, action: PayloadAction<Item>) => {
-            let existingItem = state.items.find(item => item.item.id === action.payload.id);
+            let existingItem = state.items.find(item => item.id === action.payload.id);
             if (existingItem && existingItem.qty > 1) existingItem.qty--;
         },
         removeItem: (state: SliceState, action: PayloadAction<Item>) => {
-            state.items = state.items.filter(item => item.item.id !== action.payload.id);
+            state.items = state.items.filter(item => item.id !== action.payload.id);
         },
-        placeOrder: (state: SliceState) => {
-            state.orderedItems = state.items;
+        placeOrder: (state: SliceState, action: PayloadAction<DisplayCartItem[]>) => {
+            state.orderedItems = action.payload;
             state.items = [];
         },
         reset: (state: SliceState) => {
