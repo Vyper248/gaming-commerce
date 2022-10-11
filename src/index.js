@@ -14,7 +14,8 @@ import store from './redux/store'
 import { Provider } from 'react-redux'
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000',
+  // uri: 'http://localhost:4000',
+  uri: '/.netlify/functions/graphql',
   cache: new InMemoryCache(),
 });
 

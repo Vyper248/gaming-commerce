@@ -6,6 +6,7 @@ const StyledShopItem = styled.div`
 
     & div.itemImage {
         // border: 1px solid red;
+        position: relative;
         width: 100%;
         padding-top: 100%;
         background-image: url('${props => props.imageURL}');
