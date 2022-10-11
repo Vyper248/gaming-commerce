@@ -5,6 +5,8 @@ import { Item } from './shopSlice';
 type SliceState = {
     open: boolean;
     items: CartItem[];
+    checkoutItems: DisplayCartItem[];
+    checkoutPrice: number;
     orderedItems: DisplayCartItem[];
 }
 
@@ -18,9 +20,16 @@ export type DisplayCartItem = {
     qty: number;
 }
 
+type CheckoutData = {
+    items: DisplayCartItem[];
+    price: number;
+}
+
 const initialState = {
     open: false,
     items: [],
+    checkoutItems: [],
+    checkoutPrice: 0,
     orderedItems: [],
 }
 
@@ -51,6 +60,10 @@ const cartSlice = createSlice({
         removeItem: (state: SliceState, action: PayloadAction<Item>) => {
             state.items = state.items.filter(item => item.id !== action.payload.id);
         },
+        setCheckoutData: (state: SliceState, action: PayloadAction<CheckoutData>) => {
+            state.checkoutItems = action.payload.items;
+            state.checkoutPrice = action.payload.price;
+        },
         placeOrder: (state: SliceState, action: PayloadAction<DisplayCartItem[]>) => {
             state.orderedItems = action.payload;
             state.items = [];
@@ -62,6 +75,6 @@ const cartSlice = createSlice({
     }
 });
 
-export const { toggleCart, addItem, removeItem, increaseQty, decreaseQty, placeOrder, reset } = cartSlice.actions;
+export const { toggleCart, addItem, removeItem, increaseQty, decreaseQty, setCheckoutData, placeOrder, reset } = cartSlice.actions;
 
 export default cartSlice.reducer;
