@@ -14,8 +14,9 @@ import { getDisplayCartItems } from "../../utils/gql/gql.utils";
 
 import CartItem from '../CartItem/CartItem';
 import Spinner from '../Spinner/Spinner';
-import QuantitySelector from '../../components/QuantitySelector/QuantitySelector';
-import IconButton from '../../components/IconButton/IconButton';
+import QuantitySelector from '../QuantitySelector/QuantitySelector';
+import IconButton from '../IconButton/IconButton';
+import Show from '../Show/Show';
 
 type BasketItemsProps = {
     type: 'basket' | 'dropdown' | 'checkout';
@@ -23,27 +24,40 @@ type BasketItemsProps = {
 
 const BasketRow = ({ item, qty }: DisplayCartItem) => {
     const dispatch = useDispatch();
+    const [deleting, setDeleting] = useState(false);
 
     const onIncrease = () => dispatch(increaseQty(item));
     const onDecrease = () => dispatch(decreaseQty(item));
     const onRemove = () => dispatch(removeItem(item));
 
-    return (<tr>
-        <td><StyledImage imageURL={item.imageURL} /></td>
-        <td>{item.name}</td>
-        <td><QuantitySelector qty={qty} onIncrease={onIncrease} onDecrease={onDecrease} /></td>
-        <td>£{(item.price * qty).toFixed(2)}</td>
-        <td><IconButton Icon={FaTrashAlt} onClick={onRemove} /></td>
-    </tr>)
+    const onClickRemove = () => {
+        setDeleting(true);
+        onRemove();
+    }
+
+    return (
+        <tr className={deleting ? 'deleting' : ''}>
+            <td><StyledImage imageURL={item.imageURL} /></td>
+            <td>{item.name}</td>
+            <td><QuantitySelector qty={qty} onIncrease={onIncrease} onDecrease={onDecrease} /></td>
+            <td>£{(item.price * qty).toFixed(2)}</td>
+            <td><IconButton Icon={FaTrashAlt} onClick={onClickRemove} /></td>
+            <td className='deleting'>
+                <Spinner isLoading={deleting}></Spinner>
+            </td>
+        </tr>
+    )
 }
 
 const CheckoutRow = ({ item, qty }: DisplayCartItem) => {
-    return (<tr>
-        <td><StyledImage imageURL={item.imageURL} style={{height: '50px'}}/></td>
-        <td>{item.name}</td>
-        <td>{qty}</td>
-        <td>£{item.price}</td>
-    </tr>)
+    return (
+        <tr>
+            <td><StyledImage imageURL={item.imageURL} style={{height: '50px'}}/></td>
+            <td>{item.name}</td>
+            <td>{qty}</td>
+            <td>£{item.price}</td>
+        </tr>
+    )
 }
 
 const BasketItems = ({type}: BasketItemsProps) => {
@@ -81,18 +95,23 @@ const BasketItems = ({type}: BasketItemsProps) => {
 
     if (type === 'dropdown') {
         return (
-            <Spinner isLoading={loading}>
-                <StyledDropdownItems id='cartItems'>
-                    { items.map((item: DisplayCartItem) => <CartItem key={item.item.id} cartItem={item}/>) }
-                    { cartItems.length === 0 ? <div className='empty'>Your basket is empty</div> : null }
-                </StyledDropdownItems>
-            </Spinner>
+            <StyledDropdownItems id='cartItems'>
+                <Spinner isLoading={loading && items.length === 0}>
+                        { items.map((item: DisplayCartItem) => <CartItem key={item.item.id} cartItem={item}/>) }
+                        { cartItems.length === 0 ? <div className='empty'>Your basket is empty</div> : null }
+                        <Show when={cartItems.length > 0}>
+                            <div className='totalCost' style={{height: 'auto', marginBottom: '5px', textAlign: 'center', fontWeight: 'bold'}}>
+                                TOTAL: £{totalCost.toFixed(2)}
+                            </div>
+                        </Show>
+                </Spinner>
+            </StyledDropdownItems>
         );
     }
 
     if (type === 'basket' || type === 'checkout') {
         return (
-            <Spinner isLoading={loading}>
+            <Spinner isLoading={loading && items.length === 0}>
                 <StyledBasket>
                     <table>
                         <thead>
@@ -122,11 +141,7 @@ const BasketItems = ({type}: BasketItemsProps) => {
         );
     }
 
-    return (
-        <div>
-
-        </div>
-    );
+    return null;
 }
 
 export default BasketItems;
