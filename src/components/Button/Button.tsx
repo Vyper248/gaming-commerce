@@ -13,7 +13,7 @@ type ButtonProps = {
 const Button = ({label, backgroundColor='black', isLoading=false, ...otherProps}: ButtonProps) => {
     return (
         <StyledButton backgroundColor={backgroundColor} isLoading={isLoading} {...otherProps}>
-            { isLoading ? <Spinner isLoading={true} width='40px' margin='0px'></Spinner> : label }
+            { isLoading ? <Spinner isLoading={true} width='40px' margin='0px' inverted={true}></Spinner> : label }
         </StyledButton>
     );
 }

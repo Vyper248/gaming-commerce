@@ -6,10 +6,11 @@ type SpinnerProps = {
     isLoading: boolean;
     width?: string;
     margin?: string;
+    inverted?: boolean;
 }
 
-const Spinner = ({children, isLoading=false, width='50px', margin='5px'}: SpinnerProps) => {
-    if (isLoading) return <StyledSpinner width={width} margin={margin}></StyledSpinner>;
+const Spinner = ({children, isLoading=false, width='50px', margin='5px', inverted=false}: SpinnerProps) => {
+    if (isLoading) return <StyledSpinner width={width} margin={margin} inverted={inverted}></StyledSpinner>;
     else return <>{children}</>;
 }
 

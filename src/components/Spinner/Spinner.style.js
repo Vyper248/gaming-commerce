@@ -5,7 +5,7 @@ const StyledSpinner = styled.div`
     width: ${props => props.width};
     height: ${props => props.width} !important;
     border-radius: 50%;
-    border: 5px solid #BBB;
+    ${props => props.inverted ? 'border: 5px solid #444' : 'border: 5px solid #BBB'};
     position: relative;
 
     &:after {
@@ -15,7 +15,7 @@ const StyledSpinner = styled.div`
         left: -5px;
         width: calc(${props => props.width} - 10px);
         height: calc(${props => props.width} - 10px);
-        border-top: 5px solid black;
+        ${props => props.inverted ? 'border-top: 5px solid white' : 'border-top: 5px solid black'};
         border-left: 5px solid transparent;
         border-right: 5px solid transparent;
         border-bottom: 5px solid transparent;
