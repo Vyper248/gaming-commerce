@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes } from 'react';
 import StyledButton from './Button.style';
 
-import LoadingSpinner from '../LoadingSpinner/LoadingSpinner.style'
+import Spinner from '../Spinner/Spinner';
 
 type ButtonProps = {
     label: string;
@@ -13,7 +13,7 @@ type ButtonProps = {
 const Button = ({label, backgroundColor='black', isLoading=false, ...otherProps}: ButtonProps) => {
     return (
         <StyledButton backgroundColor={backgroundColor} isLoading={isLoading} {...otherProps}>
-            { isLoading ? <LoadingSpinner/> : label }
+            { isLoading ? <Spinner isLoading={true} width='40px' margin='0px'></Spinner> : label }
         </StyledButton>
     );
 }

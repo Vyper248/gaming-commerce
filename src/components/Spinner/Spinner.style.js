@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 const StyledSpinner = styled.div`
-    margin: 5px auto;
-    width: 50px;
-    height: 50px !important;
+    margin: ${props => props.margin} auto;
+    width: ${props => props.width};
+    height: ${props => props.width} !important;
     border-radius: 50%;
     border: 5px solid #BBB;
     position: relative;
@@ -13,8 +13,8 @@ const StyledSpinner = styled.div`
         position: absolute;
         top: -5px;
         left: -5px;
-        width: 40px;
-        height: 40px;
+        width: calc(${props => props.width} - 10px);
+        height: calc(${props => props.width} - 10px);
         border-top: 5px solid black;
         border-left: 5px solid transparent;
         border-right: 5px solid transparent;

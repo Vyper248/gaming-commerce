@@ -5,13 +5,13 @@ const StyledButton = styled.button`
     color: white;
     background-color: ${props => props.backgroundColor};
     display: inline-block;
-    padding: ${props => props.isLoading ? '7.25px' : '20px'};
     text-align: center;
     width: ${props => props.width ? props.width : 'auto'};
     min-width: 140px;
     text-transform: uppercase;
     font-size: 1em;
     margin: 5px;
+    min-height: 61px;
 
     &:hover {
         background-color: white;
