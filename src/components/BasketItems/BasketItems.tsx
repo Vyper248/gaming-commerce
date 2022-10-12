@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FaTrashAlt } from 'react-icons/fa';
-import { useQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 
 import StyledDropdownItems, { StyledImage, StyledBasket } from './BasketItems.style';
 
@@ -24,27 +24,18 @@ type BasketItemsProps = {
 
 const BasketRow = ({ item, qty }: DisplayCartItem) => {
     const dispatch = useDispatch();
-    const [deleting, setDeleting] = useState(false);
 
     const onIncrease = () => dispatch(increaseQty(item));
     const onDecrease = () => dispatch(decreaseQty(item));
     const onRemove = () => dispatch(removeItem(item));
 
-    const onClickRemove = () => {
-        setDeleting(true);
-        onRemove();
-    }
-
     return (
-        <tr className={deleting ? 'deleting' : ''}>
+        <tr>
             <td><StyledImage imageURL={item.imageURL} /></td>
             <td>{item.name}</td>
             <td><QuantitySelector qty={qty} onIncrease={onIncrease} onDecrease={onDecrease} /></td>
             <td>£{(item.price * qty).toFixed(2)}</td>
-            <td><IconButton Icon={FaTrashAlt} onClick={onClickRemove} /></td>
-            <td className='deleting'>
-                <Spinner isLoading={deleting}></Spinner>
-            </td>
+            <td><IconButton Icon={FaTrashAlt} onClick={onRemove} /></td>
         </tr>
     )
 }
@@ -68,7 +59,13 @@ const BasketItems = ({type}: BasketItemsProps) => {
     const [items, setItems] = useState([] as DisplayCartItem[]);
     const [totalCost, setTotalCost] = useState(0);
 
-    const { loading, error, data } = useQuery(GET_CART_ITEMS, { variables: { ids: cartItemIds }, fetchPolicy: 'no-cache'});
+    const [ getItems, { loading, error, data }] = useLazyQuery(GET_CART_ITEMS);
+
+    //only need to do this once.
+    //If user deletes an item, don't need to refetch existing items, so can just do an instant update.
+    useEffect(() => {
+        getItems({ variables: { ids: cartItemIds }, fetchPolicy: 'no-cache'});
+    }, []);
 
     useEffect(() => {
         if (data) {

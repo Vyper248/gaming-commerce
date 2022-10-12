@@ -60,26 +60,6 @@ export const StyledBasket = styled.div`
         padding: 20px 0px;
         font-size: 2em;
     }
-
-    & tr.deleting::after {
-        content: '';
-        position: absolute;
-        top: 0px;
-        right: 0px;
-        width: 100%;
-        height: 100%;
-        background-color: gray;
-        opacity: 0.5;
-    }
-
-    & td.deleting {
-        width: 0px;
-        padding: 0px !important;
-
-        position: absolute;
-        top: calc(50% - 30px);
-        left: calc(50% - 25px);
-    }
 `;
 
 export const StyledImage = styled.div`
