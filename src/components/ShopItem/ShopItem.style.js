@@ -68,9 +68,9 @@ const StyledShopItem = styled.div`
         font-variant: small-caps;
     }
 
-    & div.itemName:hover {
+    /* & div.itemName:hover {
         cursor: pointer;
-    }
+    } */
 `
 
 export default StyledShopItem;

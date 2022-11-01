@@ -13,12 +13,7 @@ type ShopItemProps = {
 }
 
 const ShopItem = ({item, category}: ShopItemProps) => {
-    const history = useHistory();
     const dispatch = useDispatch();
-
-    const onClick = () => {
-        history.push(`/Shop/${category}/${item.id}`)
-    }
     
     const onClickCart = (e: MouseEvent) => {
         e.stopPropagation();
@@ -37,7 +32,7 @@ const ShopItem = ({item, category}: ShopItemProps) => {
                 </div>
             </div>
             <div className='itemFooter'>
-                <div className='itemName' onClick={onClick}>{item.name}</div>
+                <div className='itemName'>{item.name}</div>
                 <div className='itemPrice'>£{item.price}</div>
             </div>
         </StyledShopItem>
