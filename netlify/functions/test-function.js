@@ -32,6 +32,17 @@ exports.handler = async (event) => {
 			statusCode: 200,
 			body: JSON.stringify(dataFile)
 		}
+	} else if (body.deleteData) {
+		try {
+			fs.unlinkSync('/tmp/data.json');
+		} catch (err) {
+			//no file
+		}
+
+		return {
+			statusCode: 200,
+			body: JSON.stringify({})
+		}
 	}
 
 }
