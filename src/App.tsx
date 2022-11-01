@@ -28,47 +28,6 @@ function App() {
 	const cartOpen = useSelector((state: RootState) => state.cart.open);
 	const dispatch = useDispatch();
 
-	const onReadData = () => {
-		const fetchData = async () => {
-			let data = await fetch('/.netlify/functions/test-function', {
-				method: 'POST',
-				headers: {'content-type': 'application/json'},
-				body: JSON.stringify({readData: true})
-			}).then(res => res.json());
-
-			console.log(data);
-		};
-		fetchData();
-	}
-
-	const onWriteData = () => {
-		const fetchData = async () => {
-			let data = await fetch('/.netlify/functions/test-function', {
-				method: 'POST',
-				headers: {'content-type': 'application/json'},
-				body: JSON.stringify({saveData: true})
-			}).then(res => res.json());
-
-			console.log(data);
-		};
-
-		fetchData();
-	}
-
-	const onDeleteData = () => {
-		const fetchData = async () => {
-			let data = await fetch('/.netlify/functions/test-function', {
-				method: 'POST',
-				headers: {'content-type': 'application/json'},
-				body: JSON.stringify({deleteData: true})
-			}).then(res => res.json());
-
-			console.log(data);
-		};
-
-		fetchData();
-	}
-
 	useEffect(() => {
 		let unsubscribeFromCategories: Unsubscribe | undefined;
 		let unsubscribeFromSnapshot: Unsubscribe | undefined;
@@ -89,9 +48,6 @@ function App() {
 	return (
 		<div className="App">
 			<Header/>
-			<Button label='Read Data' onClick={onReadData}/>
-			<Button label='Write Data' onClick={onWriteData}/>
-			<Button label='Delete Data' onClick={onDeleteData}/>
 			{ cartOpen ? <CartDropdown/> : null }
 			<Container>
 				<Route exact path='/' component={Homepage}/>
