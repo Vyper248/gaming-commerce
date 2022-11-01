@@ -18,6 +18,7 @@ import SignInAndRegister from './pages/SignInAndRegister/SignInAndRegister';
 import Basket from './pages/Basket/Basket';
 import Checkout from './pages/Checkout/Checkout';
 import OrderConfirmation from './pages/OrderConfirmation/OrderConfirmation';
+import Contact from './pages/Contact/Contact';
 
 function App() {
 	const currentUser = useSelector((state: RootState) => state.user.currentUser);
@@ -53,6 +54,7 @@ function App() {
 				<Route exact path='/Shop/:Category' component={CategoryPage}/>
 				<Route exact path='/SignIn' render={() => currentUser ? <Redirect to='/'/> : <SignInAndRegister/>}/>
 				<Route exact path='/Basket' component={Basket}/>
+				<Route exact path='/Contact' component={Contact}/>
 				<Route exact path='/Checkout' render={() => cartItems.length > 0 && currentUser ? <Checkout/> : <Redirect to='/Basket'/>}/>
 				<Route exact path='/Confirmation' render={() => orderedItems.length > 0 ? <OrderConfirmation/> : <Redirect to='/'/>}/>
 			</Container>
