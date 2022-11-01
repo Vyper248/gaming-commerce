@@ -19,6 +19,7 @@ import Basket from './pages/Basket/Basket';
 import Checkout from './pages/Checkout/Checkout';
 import OrderConfirmation from './pages/OrderConfirmation/OrderConfirmation';
 import Contact from './pages/Contact/Contact';
+import Button from './components/Button/Button';
 
 function App() {
 	const currentUser = useSelector((state: RootState) => state.user.currentUser);
@@ -26,6 +27,33 @@ function App() {
 	const cartItems = useSelector((state: RootState) => state.cart.items);
 	const cartOpen = useSelector((state: RootState) => state.cart.open);
 	const dispatch = useDispatch();
+
+	const onReadData = () => {
+		const fetchData = async () => {
+			let data = await fetch('/.netlify/functions/test-function', {
+				method: 'POST',
+				headers: {'content-type': 'application/json'},
+				body: JSON.stringify({readData: true})
+			}).then(res => res.json());
+
+			console.log(data);
+		};
+		fetchData();
+	}
+
+	const onWriteData = () => {
+		const fetchData = async () => {
+			let data = await fetch('/.netlify/functions/test-function', {
+				method: 'POST',
+				headers: {'content-type': 'application/json'},
+				body: JSON.stringify({saveData: true})
+			}).then(res => res.json());
+
+			console.log(data);
+		};
+
+		fetchData();
+	}
 
 	useEffect(() => {
 		let unsubscribeFromCategories: Unsubscribe | undefined;
@@ -47,6 +75,8 @@ function App() {
 	return (
 		<div className="App">
 			<Header/>
+			<Button label='Read Data' onClick={onReadData}/>
+			<Button label='Write Data' onClick={onWriteData}/>
 			{ cartOpen ? <CartDropdown/> : null }
 			<Container>
 				<Route exact path='/' component={Homepage}/>
