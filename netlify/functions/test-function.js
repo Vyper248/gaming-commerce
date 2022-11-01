@@ -1,29 +1,37 @@
 const fs = require('fs');
 
+const getFile = () => {
+	try {
+		let dataFileJson = fs.readFileSync('/tmp/data.json');
+		let dataFile = JSON.parse(dataFileJson);
+		return dataFile;
+	} catch (err) {
+		return {};
+	}
+}
+
 exports.handler = async (event) => {
-    let body = JSON.parse(event.body);
+	let body = JSON.parse(event.body);
 
-    if (body.readData) {
-      let dataFileJson = fs.readFileSync('/tmp/data.json');
-      let dataFile = dataFileJson ? JSON.parse(dataFileJson) : {};
+	if (body.readData) {
+		let dataFile = getFile();
 
-      return {
-          statusCode: 200,
-          body: JSON.stringify(dataFile)
-      }
-    } else if (body.saveData) {
-      let dataFileJson = fs.readFileSync('/tmp/data.json');
-      let dataFile = dataFileJson ? JSON.parse(dataFileJson) : {};
-      
-      let randomID = Math.round(Math.random()*10000);
-      dataFile[randomID] = 'Saved';
+		return {
+			statusCode: 200,
+			body: JSON.stringify(dataFile)
+		}
+	} else if (body.saveData) {
+		let dataFile = getFile();
 
-      fs.writeFileSync('/tmp/data.json', JSON.stringify(dataFile));
+		let randomID = Math.round(Math.random() * 10000);
+		dataFile[randomID] = 'Saved';
 
-      return {
-          statusCode: 200,
-          body: JSON.stringify(dataFile)
-      }
-    }
+		fs.writeFileSync('/tmp/data.json', JSON.stringify(dataFile));
+
+		return {
+			statusCode: 200,
+			body: JSON.stringify(dataFile)
+		}
+	}
 
 }
