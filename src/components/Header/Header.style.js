@@ -27,6 +27,30 @@ const HeaderStyle = styled.div`
         color: #555;
         cursor: pointer;
     }
+
+    @media screen and (max-width: 550px) {
+        & > .headerBtn {
+            margin: 10px;
+            padding: 5px;
+            font-size: 1em;
+        }   
+    }
+
+    @media screen and (max-width: 400px) {
+        & > .headerBtn {
+            margin: 10px;
+            padding: 5px;
+            font-size: 0.9em;
+        }   
+    }
+
+    @media screen and (max-width: 370px) {
+        & > .headerBtn {
+            margin: 10px;
+            padding: 5px;
+            font-size: 0.8em;
+        }   
+    }
 `
 
 export default HeaderStyle;

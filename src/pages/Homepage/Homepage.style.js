@@ -20,6 +20,12 @@ const StyledHomepage = styled.div`
 
     @media screen and (max-width: 720px) {
         grid-template-columns: 1fr;
+
+        & > div:nth-child(1),
+        & > div:nth-child(2),
+        & > div:nth-child(3) {
+            grid-column: span 3;
+        }
     }
 `;
 

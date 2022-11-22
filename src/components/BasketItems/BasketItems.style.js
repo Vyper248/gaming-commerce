@@ -72,4 +72,36 @@ export const StyledImage = styled.div`
     margin: 10px 10px 10px 0px;
 `;
 
+export const StyledMobileRow = styled.div`
+    display: flex;
+    max-width: 500px;
+    margin: auto;
+
+    & > div:first-child {
+        width: 150px;
+    }
+
+    & > div.details {
+        width: 100%;
+        max-width: 250px;
+        padding-top: 20px;
+        padding-left: 20px;
+
+        & > div {
+            margin-bottom: 10px;
+        }
+
+        & > div:last-child {
+            justify-content: left;
+        }
+    }
+
+    & > div.remove {
+        width: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+`;
+
 export default StyledDropdownItems;

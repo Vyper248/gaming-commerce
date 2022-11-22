@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const StyledBasket = styled.div`
-    width: 780px;
+    max-width: 780px;
     margin: auto;
     margin-bottom: 30px;
 

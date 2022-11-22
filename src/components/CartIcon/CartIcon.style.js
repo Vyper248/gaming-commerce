@@ -15,6 +15,12 @@ const StyledCartIcon = styled.div`
         text-align: center;
         width: 100%;
     }
+
+    @media screen and (max-width: 370px) {
+        & > div {
+            top: 9px;
+        }   
+    }
 `
 
 export default StyledCartIcon;

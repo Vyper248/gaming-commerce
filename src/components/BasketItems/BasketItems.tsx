@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FaTrashAlt } from 'react-icons/fa';
 import { useLazyQuery } from "@apollo/client";
+import { useMediaQuery } from 'react-responsive';
 
-import StyledDropdownItems, { StyledImage, StyledBasket } from './BasketItems.style';
+import StyledDropdownItems, { StyledImage, StyledBasket, StyledMobileRow } from './BasketItems.style';
 
 import { CartItem as CartItemType, DisplayCartItem, increaseQty, decreaseQty, removeItem, setCheckoutData } from "../../redux/cartSlice";
 import { selectCartIds } from "../../redux/selectors";
@@ -43,28 +44,64 @@ const BasketRow = ({ item, qty }: DisplayCartItem) => {
 const CheckoutRow = ({ item, qty }: DisplayCartItem) => {
     return (
         <tr>
-            <td><StyledImage imageURL={item.imageURL} style={{height: '50px'}}/></td>
+            <td><StyledImage imageURL={item.imageURL} style={{ height: '50px' }} /></td>
             <td>{item.name}</td>
             <td>{qty}</td>
-            <td>£{item.price}</td>
+            <td>£{(item.price * qty).toFixed(2)}</td>
         </tr>
     )
 }
 
-const BasketItems = ({type}: BasketItemsProps) => {
+const MobileBasket = ({ item, qty }: DisplayCartItem) => {
     const dispatch = useDispatch();
+
+    const onIncrease = () => dispatch(increaseQty(item));
+    const onDecrease = () => dispatch(decreaseQty(item));
+    const onRemove = () => dispatch(removeItem(item));
+
+    return (
+        <StyledMobileRow>
+            <StyledImage imageURL={item.imageURL} />
+            <div className='details'>
+                <div>{item.name}</div>
+                <div>£{(item.price * qty).toFixed(2)}</div>
+                <QuantitySelector qty={qty} onIncrease={onIncrease} onDecrease={onDecrease} />
+            </div>
+            <div className='remove'>
+                <IconButton Icon={FaTrashAlt} onClick={onRemove} />
+            </div>
+        </StyledMobileRow>
+    );
+}
+
+const MobileBasketCheckout = ({ item, qty }: DisplayCartItem) => {
+    return (
+        <StyledMobileRow>
+            <StyledImage imageURL={item.imageURL} style={{ height: '100px' }} />
+            <div className='details'>
+                <div>{item.name}</div>
+                <div>Qty: {qty}</div>
+                <div>Price: £{(item.price * qty).toFixed(2)}</div>
+            </div>
+        </StyledMobileRow>
+    );
+}
+
+const BasketItems = ({ type }: BasketItemsProps) => {
+    const dispatch = useDispatch();
+    const isMobile = useMediaQuery({ query: '(max-width: 830px)' });
 
     const cartItems: CartItemType[] = useSelector((state: RootState) => state.cart.items);
     const cartItemIds = useSelector(selectCartIds);
     const [items, setItems] = useState([] as DisplayCartItem[]);
     const [totalCost, setTotalCost] = useState(0);
 
-    const [ getItems, { loading, error, data }] = useLazyQuery(GET_CART_ITEMS);
+    const [getItems, { loading, error, data }] = useLazyQuery(GET_CART_ITEMS);
 
     //only need to do this once.
     //If user deletes an item, don't need to refetch existing items, so can just do an instant update.
     useEffect(() => {
-        getItems({ variables: { ids: cartItemIds }, fetchPolicy: 'no-cache'});
+        getItems({ variables: { ids: cartItemIds }, fetchPolicy: 'no-cache' });
     }, []);
 
     useEffect(() => {
@@ -75,7 +112,7 @@ const BasketItems = ({type}: BasketItemsProps) => {
             let totalCostValue = displayCartItems.reduce((a, c: DisplayCartItem) => {
                 return a + (c.qty * c.item.price);
             }, 0);
-    
+
             setTotalCost(totalCostValue);
 
             //Checkout component needs this data too
@@ -94,15 +131,34 @@ const BasketItems = ({type}: BasketItemsProps) => {
         return (
             <StyledDropdownItems id='cartItems'>
                 <Spinner isLoading={loading && items.length === 0}>
-                        { items.map((item: DisplayCartItem) => <CartItem key={item.item.id} cartItem={item}/>) }
-                        { cartItems.length === 0 ? <div className='empty'>Your basket is empty</div> : null }
-                        <Show when={cartItems.length > 0}>
-                            <div className='totalCost' style={{height: 'auto', marginBottom: '5px', textAlign: 'center', fontWeight: 'bold'}}>
-                                TOTAL: £{totalCost.toFixed(2)}
-                            </div>
-                        </Show>
+                    {items.map((item: DisplayCartItem) => <CartItem key={item.item.id} cartItem={item} />)}
+                    {cartItems.length === 0 ? <div className='empty'>Your basket is empty</div> : null}
+                    <Show when={cartItems.length > 0}>
+                        <div className='totalCost' style={{ height: 'auto', marginBottom: '5px', textAlign: 'center', fontWeight: 'bold' }}>
+                            TOTAL: £{totalCost.toFixed(2)}
+                        </div>
+                    </Show>
                 </Spinner>
             </StyledDropdownItems>
+        );
+    }
+
+    if (isMobile) {
+        return (
+            <Spinner isLoading={loading && items.length === 0}>
+                <StyledBasket>
+                    {
+                        items.map((item: DisplayCartItem) => {
+                            return type === 'basket'
+                            ? <MobileBasket item={item.item} qty={item.qty} />
+                            : <MobileBasketCheckout item={item.item} qty={item.qty} />
+                        })
+                    }
+                    <div className='totalCost'>
+                        TOTAL: £{totalCost.toFixed(2)}
+                    </div>
+                </StyledBasket>
+            </Spinner>
         );
     }
 
@@ -114,16 +170,16 @@ const BasketItems = ({type}: BasketItemsProps) => {
                         <thead>
                             <tr>
                                 <th>Product</th>
-                                <th>Description</th>
+                                <th>Name</th>
                                 <th>Quantity</th>
                                 <th>Price</th>
-                                { type === 'basket' ? <th>Remove</th> : null }
+                                {type === 'basket' ? <th>Remove</th> : null}
                             </tr>
                         </thead>
                         <tbody>
                             {
                                 items.map((item: DisplayCartItem) => {
-                                    return type === 'basket' 
+                                    return type === 'basket'
                                         ? <BasketRow key={item.item.id} item={item.item} qty={item.qty} />
                                         : <CheckoutRow key={item.item.id} item={item.item} qty={item.qty} />
                                 })

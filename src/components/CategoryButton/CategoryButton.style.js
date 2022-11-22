@@ -58,6 +58,10 @@ const StyledCategoryButton = styled.div`
             background-color: rgba(255,255,255,0.9);
         }
     }
+
+    @media screen and (max-width: 720) {
+         
+    }
 `;
 
 export default StyledCategoryButton;
